@@ -1,0 +1,16 @@
+## test
+**/obj
+**/bin
+.dockerignore
+.editorconfig
+.gitignore
+.git
+.idea
+.vs
+.vscode
+Dockerfile
+Dockerfile.integration-tests
+docker-compose.yml
+.env
+scripts/
+!scripts/wait
