@@ -1,22 +1,19 @@
 ﻿using Microservice.Api.Commands;
 using Microservice.Api.Database;
+using Microservice.Api.Database.EntityModels;
+using Microservice.Api.Model;
 using Microservice.Api.Responses;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microservice.Api.Database.EntityModels;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microservice.Api.Model;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.JsonPatch.Operations;
-using Newtonsoft.Json;
 
 namespace Microservice.Api.Integration.Tests
 {
