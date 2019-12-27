@@ -1,4 +1,4 @@
-﻿using Microservice.Api.Database;
+﻿using Microservice.Db;
 using Microsoft.EntityFrameworkCore;
 
 namespace Microservice.Api.Integration.Tests

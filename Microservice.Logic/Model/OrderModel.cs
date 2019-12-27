@@ -1,4 +1,4 @@
-﻿namespace Microservice.Api.Model
+﻿namespace Microservice.Logic.Model
 {
     public class OrderModel
     {

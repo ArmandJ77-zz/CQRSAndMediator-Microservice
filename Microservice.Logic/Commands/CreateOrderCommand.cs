@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using Microservice.Api.Responses;
+using Microservice.Logic.Responses;
 
-namespace Microservice.Api.Commands
+namespace Microservice.Logic.Commands
 {
     public class CreateOrderCommand : IRequest<OrderResponse>
     {

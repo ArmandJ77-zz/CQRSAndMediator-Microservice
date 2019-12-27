@@ -1,10 +1,10 @@
-﻿using Microservice.Api.Database.EntityModels;
-using Microservice.Api.Model;
-using Microservice.Api.Responses;
+﻿using Microservice.Db.EntityModels;
+using Microservice.Logic.Model;
 using System.Collections.Generic;
 using System.Linq;
+using Microservice.Logic.Responses;
 
-namespace Microservice.Api.Mappers
+namespace Microservice.Logic.Mappers
 {
     public class Mapper : IMapper
     {

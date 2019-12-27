@@ -1,7 +1,7 @@
-﻿using Microservice.Api.Database.EntityModels;
+﻿using Microservice.Db.EntityModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Microservice.Api.Database
+namespace Microservice.Db
 {
     public class MicroserviceDbContext: DbContext
     {

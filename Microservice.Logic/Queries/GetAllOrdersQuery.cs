@@ -1,8 +1,8 @@
 ﻿using MediatR;
-using Microservice.Api.Responses;
 using System.Collections.Generic;
+using Microservice.Logic.Responses;
 
-namespace Microservice.Api.Queries
+namespace Microservice.Logic.Queries
 {
     public class GetAllOrdersQuery: IRequest<List<OrderResponse>>
     {

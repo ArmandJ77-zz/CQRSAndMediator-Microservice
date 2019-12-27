@@ -1,7 +1,7 @@
-﻿using Microservice.Api.Database;
-using Microservice.Api.Mappers;
+﻿using Microservice.Db;
+using Microservice.Logic.Mappers;
 
-namespace Microservice.Api.Handlers
+namespace Microservice.Logic.Handlers
 {
     public class BaseHandler
     {

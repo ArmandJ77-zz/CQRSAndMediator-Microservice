@@ -1,11 +1,10 @@
 ﻿using MediatR;
-using Microservice.Api.Commands;
-using Microservice.Api.Model;
-using Microservice.Api.Queries;
+using Microservice.Logic.Model;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using Microservice.Logic.Commands;
+using Microservice.Logic.Queries;
 
 namespace Microservice.Api.Controllers
 {
@@ -13,12 +12,10 @@ namespace Microservice.Api.Controllers
     [Route("[controller]")]
     public class OrdersController : ControllerBase
     {
-        private readonly ILogger<OrdersController> _logger;
         private readonly IMediator _mediator;
 
-        public OrdersController(ILogger<OrdersController> logger, IMediator mediator)
+        public OrdersController(IMediator mediator)
         {
-            _logger = logger;
             _mediator = mediator;
         }
 

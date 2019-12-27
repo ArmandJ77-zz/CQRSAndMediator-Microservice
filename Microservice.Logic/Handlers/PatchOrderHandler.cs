@@ -1,12 +1,13 @@
 ﻿using MediatR;
-using Microservice.Api.Commands;
-using Microservice.Api.Database;
-using Microservice.Api.Mappers;
-using Microservice.Api.Responses;
+using Microservice.Db;
+using Microservice.Logic.Commands;
+using Microservice.Logic.Handlers;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using Microservice.Logic.Mappers;
+using Microservice.Logic.Responses;
 
 namespace Microservice.Api.Handlers
 {

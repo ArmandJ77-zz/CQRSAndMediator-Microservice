@@ -1,8 +1,8 @@
-﻿using Microservice.Api.Commands;
-using Microservice.Api.Database;
-using Microservice.Api.Database.EntityModels;
-using Microservice.Api.Model;
-using Microservice.Api.Responses;
+﻿using Microservice.Db;
+using Microservice.Db.EntityModels;
+using Microservice.Logic.Commands;
+using Microservice.Logic.Model;
+using Microservice.Logic.Responses;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;

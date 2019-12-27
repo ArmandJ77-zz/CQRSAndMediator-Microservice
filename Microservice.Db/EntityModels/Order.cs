@@ -1,4 +1,4 @@
-﻿namespace Microservice.Api.Database.EntityModels
+﻿namespace Microservice.Db.EntityModels
 {
     public class Order
     {

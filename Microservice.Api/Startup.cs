@@ -1,6 +1,7 @@
 using MediatR;
-using Microservice.Api.Database;
-using Microservice.Api.Mappers;
+using Microservice.Db;
+using Microservice.Logic.Commands;
+using Microservice.Logic.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -32,10 +33,11 @@ namespace Microservice.Api
             }));
 
             services.AddControllers().AddNewtonsoftJson();
-            services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddDbContext<MicroserviceDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("MicroserviceDbContext")));
-            services.AddTransient<IMapper, Mapper>();
+            services.ConfigureLogic(Configuration);
+            services.AddMediatR(typeof(CreateOrderCommand));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

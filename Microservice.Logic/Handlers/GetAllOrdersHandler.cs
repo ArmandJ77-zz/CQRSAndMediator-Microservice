@@ -1,24 +1,20 @@
 ﻿using MediatR;
-using Microservice.Api.Database;
-using Microservice.Api.Mappers;
-using Microservice.Api.Queries;
-using Microservice.Api.Responses;
+using Microservice.Db;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microservice.Logic.Mappers;
+using Microservice.Logic.Queries;
+using Microservice.Logic.Responses;
 
-namespace Microservice.Api.Handlers
+namespace Microservice.Logic.Handlers
 {
-    public class GetAllOrdersHandler: IRequestHandler<GetAllOrdersQuery,List<OrderResponse>>
+    public class GetAllOrdersHandler: BaseHandler,IRequestHandler<GetAllOrdersQuery,List<OrderResponse>>
     {
-        private readonly MicroserviceDbContext _dbContext;
-        private readonly IMapper _mapper;
-
         public GetAllOrdersHandler(MicroserviceDbContext dbContext, IMapper mapper)
+            : base(dbContext, mapper)
         {
-            _dbContext = dbContext;
-            _mapper = mapper;
         }
 
         public async Task<List<OrderResponse>> Handle(GetAllOrdersQuery request, CancellationToken cancellationToken)
