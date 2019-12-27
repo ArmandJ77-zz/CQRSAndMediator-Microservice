@@ -11,6 +11,12 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microservice.Api.Database.EntityModels;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microservice.Api.Model;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
+using Newtonsoft.Json;
 
 namespace Microservice.Api.Integration.Tests
 {
@@ -53,6 +59,8 @@ namespace Microservice.Api.Integration.Tests
                 db.Clear();
             });
 
+            // Act
+
             var response = await _client.PostAsJsonAsync("/orders", createCustomerOrderCommand);
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
             var result = response.Content.Deserialize<OrderResponse>().Result;
@@ -77,6 +85,7 @@ namespace Microservice.Api.Integration.Tests
                 db.Orders.Add(order);
             });
 
+            // Act
             var response = await _client.GetAsync($"/orders/{order.Id}");
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             var result = response.Content.Deserialize<OrderResponse>().Result;
@@ -120,6 +129,36 @@ namespace Microservice.Api.Integration.Tests
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(3));
+        }
+
+        [Test]
+        public async Task Given_PatchOnOrder_Expact_Updated_OrderResponse()
+        {
+            // Arrange
+            var origionalOrder = new Order
+            {
+                Id = 1,
+                Name = "product zero one"
+            };
+
+            var patchDoc = new JsonPatchDocument<OrderModel>();
+            patchDoc.Replace(x => x.Name, "zero one");
+
+            var operations = patchDoc.Operations.ToList();
+
+            _factory.Seed<Startup, MicroserviceDbContext>(db =>
+            {
+                db.Clear();
+                db.Orders.Add(origionalOrder);
+            });
+
+            // Act
+            var response = await _client.PatchAsJsonAsync($"/orders/update/{origionalOrder.Id}/77", patchDoc);
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            var result = response.Content.Deserialize<OrderResponse>().Result;
+
+            // Assert
+            StringAssert.AreEqualIgnoringCase($"PROD: zero one", result.Name);
         }
     }
 }

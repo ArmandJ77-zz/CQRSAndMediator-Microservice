@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using Microservice.Api.Commands;
+using Microservice.Api.Model;
 using Microservice.Api.Queries;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.JsonPatch;
 
 namespace Microservice.Api.Controllers
 {
@@ -44,10 +45,10 @@ namespace Microservice.Api.Controllers
             return CreatedAtAction(nameof(GetOrder), new { orderId = result.Id }, result);
         }
 
-        [HttpPatch()]
-        public async Task<IActionResult> PatchOrder([FromBody] PatchOrderCommand command)
+        [HttpPatch("update/{id}/{personId}")]
+        public async Task<IActionResult> PatchOrder([FromRoute]long id,[FromRoute] long personId, [FromBody] JsonPatchDocument<OrderModel> patchModel)
         {
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(new PatchOrderCommand{JsonPatchDocument = patchModel,OrderId = id, PersonId = personId });
             return result != null ? (IActionResult)Ok(result) : NotFound();
         }
     }
