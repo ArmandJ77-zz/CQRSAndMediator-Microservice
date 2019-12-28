@@ -9,9 +9,9 @@ using Microservice.Logic.Responses;
 
 namespace Microservice.Logic.Handlers
 {
-    public class CreateCustomerOrderHandler: BaseHandler,IRequestHandler<CreateOrderCommand, OrderResponse>
+    public class CreateOrderHandler: BaseHandler,IRequestHandler<CreateOrderCommand, OrderResponse>
     {
-        public CreateCustomerOrderHandler(MicroserviceDbContext dbContext, IMapper mapper)
+        public CreateOrderHandler(MicroserviceDbContext dbContext, IMapper mapper)
             : base(dbContext, mapper)
         {
         }
