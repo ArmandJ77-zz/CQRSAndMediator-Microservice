@@ -15,7 +15,7 @@ namespace Microservice.Logic.Config
             container
                 .ConfigureDb(settings.MicroserviceDbContext)
                 .AddTransient<IMapper, Mapper>()
-            ;
+                ;
 
             return container;
         }

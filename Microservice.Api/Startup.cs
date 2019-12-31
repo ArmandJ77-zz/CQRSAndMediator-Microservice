@@ -1,14 +1,17 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
+using Microservice.Api.Filters;
 using Microservice.Db;
-using Microservice.Logic.Commands;
 using Microservice.Logic.Config;
+using Microservice.Logic.PipelineBehaviours;
+using Microservice.Logic.Validators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Reflection;
 
 namespace Microservice.Api
 {
@@ -32,12 +35,26 @@ namespace Microservice.Api
                     .AllowAnyHeader();
             }));
 
-            services.AddControllers().AddNewtonsoftJson();
+            services
+                .AddControllers()
+                .AddNewtonsoftJson();
+
+            services
+                .AddMvc(options => { options.Filters.Add<ValidationFilter>(); })
+                // API Level Validation
+                .AddFluentValidation(config =>
+                {
+                    config.RegisterValidatorsFromAssemblyContaining<CreateOrderValidator>();
+                })
+                ;
             services.AddDbContext<MicroserviceDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("MicroserviceDbContext")));
-            services.ConfigureLogic(Configuration);
-            services.AddMediatR(typeof(CreateOrderCommand));
 
+            services.ConfigureLogic(Configuration);
+
+            services.AddMediatR(typeof(ConfigureServiceCollectionExtensions).Assembly);
+            //Domain Level Validation
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
