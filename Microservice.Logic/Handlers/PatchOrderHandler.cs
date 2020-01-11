@@ -1,16 +1,15 @@
-﻿using MediatR;
+﻿using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
 using Microservice.Db;
 using Microservice.Db.EntityModels;
 using Microservice.Logic.Commands;
-using Microservice.Logic.Handlers;
 using Microservice.Logic.Mappers;
 using Microservice.Logic.Responses;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace Microservice.Api.Handlers
+namespace Microservice.Logic.Handlers
 {
     public class PatchOrderHandler : BaseHandler, IRequestHandler<PatchOrderCommand, OrderResponse>
     {
