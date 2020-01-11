@@ -45,7 +45,8 @@ namespace Microservice.Api.Controllers
         [HttpPatch("update/{id}/{personId}")]
         public async Task<IActionResult> PatchOrder([FromRoute]long id,[FromRoute] long personId, [FromBody] JsonPatchDocument<OrderModel> patchModel)
         {
-            var result = await _mediator.Send(new PatchOrderCommand{JsonPatchDocument = patchModel,OrderId = id, PersonId = personId });
+            var command = new PatchOrderCommand {JsonPatchDocument = patchModel, OrderId = id, PersonId = personId};
+            var result = await _mediator.Send(command);
             return result != null ? (IActionResult)Ok(result) : NotFound();
         }
     }

@@ -10,11 +10,8 @@ namespace Microservice.Api.Filters
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            Debug.WriteLine("APi filter hit");
             if (!context.ModelState.IsValid)
             {
-                Debug.WriteLine("APi filter hit: Failed");
-
                 var errorsInModelState = context.ModelState
                     .Where(x => x.Value.Errors.Count > 0)
                     .ToDictionary(pair => pair.Key, pair => pair.Value.Errors.Select(x => x.ErrorMessage))
