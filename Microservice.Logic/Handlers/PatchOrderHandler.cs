@@ -1,20 +1,20 @@
 ﻿using MediatR;
 using Microservice.Db;
+using Microservice.Db.EntityModels;
 using Microservice.Logic.Commands;
 using Microservice.Logic.Handlers;
+using Microservice.Logic.Mappers;
+using Microservice.Logic.Responses;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Microservice.Logic.Mappers;
-using Microservice.Logic.Responses;
 
 namespace Microservice.Api.Handlers
 {
     public class PatchOrderHandler : BaseHandler, IRequestHandler<PatchOrderCommand, OrderResponse>
     {
-        public PatchOrderHandler(MicroserviceDbContext dbContext, IMapper mapper)
-            : base(dbContext, mapper)
+        public PatchOrderHandler(MicroserviceDbContext dbContext, IMediator mediator) : base(dbContext, mediator)
         {
         }
 
@@ -29,7 +29,7 @@ namespace Microservice.Api.Handlers
             if (originalEntity == null)
                 return null;
 
-            var model = _mapper.MapOrderEntityToModel(originalEntity);
+            var model = originalEntity.ToPatchModal();
 
             command.JsonPatchDocument.ApplyTo(model, error =>
             {
@@ -42,12 +42,17 @@ namespace Microservice.Api.Handlers
                 model.Name = $"PROD: {model.Name}";
             }
 
-            var updatedEntity = _mapper.MapOrderModelToEntity(model);
+            var updatedEntity = new Order
+            {
+                Id = originalEntity.Id,
+                Name = model.Name
+            }; 
 
             _dbContext.Update(updatedEntity);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return _mapper.MapOrderModelToOrderResponse(model);
+            var response = updatedEntity.ToResponse();
+            return response;
         }
     }
 }

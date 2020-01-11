@@ -1,5 +1,4 @@
 ﻿using Microservice.Db.Config;
-using Microservice.Logic.Mappers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +13,6 @@ namespace Microservice.Logic.Config
 
             container
                 .ConfigureDb(settings.MicroserviceDbContext)
-                .AddTransient<IMapper, Mapper>()
                 ;
 
             return container;

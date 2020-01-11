@@ -1,10 +1,11 @@
 ﻿using MediatR;
-using Microservice.Logic.Model;
+using Microservice.Logic.Commands;
+using Microservice.Logic.Queries;
+using Microservice.Logic.Responses;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microservice.Logic.Commands;
-using Microservice.Logic.Queries;
+using Microservice.Logic.Model;
 
 namespace Microservice.Api.Controllers
 {
@@ -43,9 +44,9 @@ namespace Microservice.Api.Controllers
         }
 
         [HttpPatch("update/{id}/{personId}")]
-        public async Task<IActionResult> PatchOrder([FromRoute]long id,[FromRoute] long personId, [FromBody] JsonPatchDocument<OrderModel> patchModel)
+        public async Task<IActionResult> PatchOrder([FromRoute]long id,[FromRoute] long personId, [FromBody] JsonPatchDocument<OrderPatchModel> patchModel)
         {
-            var command = new PatchOrderCommand {JsonPatchDocument = patchModel, OrderId = id, PersonId = personId};
+            var command = new PatchOrderCommand(id,personId,patchModel);
             var result = await _mediator.Send(command);
             return result != null ? (IActionResult)Ok(result) : NotFound();
         }

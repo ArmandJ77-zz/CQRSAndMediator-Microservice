@@ -1,7 +1,7 @@
 ﻿using Microservice.Db;
 using Microsoft.EntityFrameworkCore;
 
-namespace Microservice.Api.Integration.Tests
+namespace Microservice.Api.Integration.Tests.Infrastructure
 {
     public static class MicroserviceApiDbContextExtensions
     {

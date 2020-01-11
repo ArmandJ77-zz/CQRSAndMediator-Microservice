@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
-namespace Microservice.Api.Integration.Tests
+namespace Microservice.Api.Integration.Tests.Infrastructure
 {
     public static class ConversionUtils
     {

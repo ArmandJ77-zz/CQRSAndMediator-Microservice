@@ -1,7 +1,6 @@
 ﻿using Microservice.Db;
 using Microservice.Db.EntityModels;
 using Microservice.Logic.Commands;
-using Microservice.Logic.Model;
 using Microservice.Logic.Responses;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -14,6 +13,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microservice.Api.Integration.Tests.Infrastructure;
 
 namespace Microservice.Api.Integration.Tests
 {
@@ -46,10 +46,7 @@ namespace Microservice.Api.Integration.Tests
         public async Task Given_CreateCustomerOrderCommand_Expect_OrderResponse()
         {
             // Arrange
-            var createCustomerOrderCommand = new CreateOrderCommand
-            {
-                Name = "Testing command"
-            };
+            var createCustomerOrderCommand = new CreateOrderCommand("Testing command");
 
             _factory.Seed<Startup, MicroserviceDbContext>(db =>
             {
@@ -138,7 +135,7 @@ namespace Microservice.Api.Integration.Tests
                 Name = "product zero one"
             };
 
-            var patchDoc = new JsonPatchDocument<OrderModel>();
+            var patchDoc = new JsonPatchDocument<OrderResponse>();
             patchDoc.Replace(x => x.Name, "zero one");
 
             var operations = patchDoc.Operations.ToList();

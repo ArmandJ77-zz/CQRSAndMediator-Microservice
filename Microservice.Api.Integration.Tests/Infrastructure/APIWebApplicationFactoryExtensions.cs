@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using System;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
-namespace Microservice.Api.Integration.Tests
+namespace Microservice.Api.Integration.Tests.Infrastructure
 {
     public static class APIWebApplicationFactoryExtensions
     {

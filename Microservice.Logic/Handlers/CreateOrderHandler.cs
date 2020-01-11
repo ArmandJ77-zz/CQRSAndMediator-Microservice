@@ -2,17 +2,16 @@
 using Microservice.Db;
 using Microservice.Db.EntityModels;
 using Microservice.Logic.Commands;
+using Microservice.Logic.Responses;
 using System.Threading;
 using System.Threading.Tasks;
 using Microservice.Logic.Mappers;
-using Microservice.Logic.Responses;
 
 namespace Microservice.Logic.Handlers
 {
     public class CreateOrderHandler: BaseHandler,IRequestHandler<CreateOrderCommand, OrderResponse>
     {
-        public CreateOrderHandler(MicroserviceDbContext dbContext, IMapper mapper)
-            : base(dbContext, mapper)
+        public CreateOrderHandler(MicroserviceDbContext dbContext, IMediator mediator) : base(dbContext, mediator)
         {
         }
 
@@ -26,7 +25,7 @@ namespace Microservice.Logic.Handlers
             _dbContext.Orders.Add(entity);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            var response = _mapper.MapOrderEntityToOrderResponse(entity);
+            var response = entity.ToResponse();
 
             return response;
         }

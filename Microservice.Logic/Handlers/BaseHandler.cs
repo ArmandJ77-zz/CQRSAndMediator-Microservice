@@ -1,17 +1,17 @@
-﻿using Microservice.Db;
-using Microservice.Logic.Mappers;
+﻿using MediatR;
+using Microservice.Db;
 
 namespace Microservice.Logic.Handlers
 {
     public class BaseHandler
     {
+        public IMediator Mediator { get; }
         public readonly MicroserviceDbContext _dbContext;
-        public readonly IMapper _mapper;
 
-        public BaseHandler(MicroserviceDbContext dbContext, IMapper mapper)
+        public BaseHandler(MicroserviceDbContext dbContext, IMediator mediator)
         {
+            Mediator = mediator;
             _dbContext = dbContext;
-            _mapper = mapper;
         }
     }
 }
