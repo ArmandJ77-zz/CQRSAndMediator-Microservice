@@ -1,3 +1,5 @@
+![.NET Core](https://github.com/ArmandJ77/CQRSAndMediator-Microservice/workflows/.NET%20Core/badge.svg?branch=master)
+
 # CQRS and Mediator Microservice
 
 This microservice is used to demonstrate the CQRS and Mediator patterns.
