@@ -1,0 +1,9 @@
+version: "3.4"
+services:
+  db:
+    image: postgres:alpine
+    env_file: .env
+    environment:
+      - POSTGRES_PASSWORD=root
+    ports:
+      - 5433:5432
