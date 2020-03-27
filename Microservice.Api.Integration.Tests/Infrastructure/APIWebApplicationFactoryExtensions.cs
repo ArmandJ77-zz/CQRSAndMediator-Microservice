@@ -16,6 +16,7 @@ namespace Microservice.Api.Integration.Tests.Infrastructure
             using (IServiceScope scope = factory.Server.Services.CreateScope())
             {
                 TDbContext service = scope.ServiceProvider.GetService<TDbContext>();
+
                 seed(service);
                 service.SaveChanges();
             }
