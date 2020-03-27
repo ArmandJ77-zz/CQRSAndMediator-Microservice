@@ -1,0 +1,15 @@
+version: "3.4"
+services:
+  app:
+    build: .
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+  db:
+    image: postgres:alpine
+    env_file: .env
+    environment:
+      - POSTGRES_PASSWORD=root
+    ports:
+      - 5433:5432

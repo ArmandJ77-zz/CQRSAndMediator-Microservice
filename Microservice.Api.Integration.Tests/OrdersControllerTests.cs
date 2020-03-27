@@ -1,19 +1,21 @@
-﻿using Microservice.Db;
-using Microservice.Db.EntityModels;
+﻿using Microservice.Api.Integration.Tests.Infrastructure;
+using Microservice.Db;
 using Microservice.Logic.Commands;
 using Microservice.Logic.Responses;
-using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microservice.Api.Integration.Tests.Infrastructure;
+using Microservice.Db.EntityModels;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace Microservice.Api.Integration.Tests
 {
@@ -26,6 +28,7 @@ namespace Microservice.Api.Integration.Tests
         [OneTimeSetUp]
         public void Setup()
         {
+
             _factory = new WebApplicationFactory<Startup>()
                 .WithWebHostBuilder(builder =>
                 {
@@ -34,11 +37,11 @@ namespace Microservice.Api.Integration.Tests
                         services.RemoveAll(typeof(MicroserviceDbContext));
                         services.AddDbContext<MicroserviceDbContext>(options =>
                         {
-                            options.UseInMemoryDatabase("InMemoryDbForTesting");
+                            options.UseInMemoryDatabase("TestInMemoryDatabase");
                         });
                     });
                 });
-   
+
             _client = _factory.CreateClient();
         }
 
@@ -60,7 +63,7 @@ namespace Microservice.Api.Integration.Tests
             var result = response.Content.Deserialize<OrderResponse>().Result;
 
             // Assert
-            StringAssert.AreEqualIgnoringCase(createCustomerOrderCommand.Name,result.Name);
+            StringAssert.AreEqualIgnoringCase(createCustomerOrderCommand.Name, result.Name);
         }
 
         [Test]

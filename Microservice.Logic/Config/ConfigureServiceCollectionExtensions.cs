@@ -12,7 +12,7 @@ namespace Microservice.Logic.Config
             config.Bind(settings);
 
             container
-                .ConfigureDb(settings.MicroserviceDbContext)
+                .ConfigureDb(settings.DbConnectionString)
                 ;
 
             return container;

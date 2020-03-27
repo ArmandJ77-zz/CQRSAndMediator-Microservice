@@ -2,7 +2,7 @@
 {
     public class MicroserviceSettings
     {
-        public string MicroserviceDbContext { get; set; }
+        public string DbConnectionString { get; set; }
 
     }
 }
