@@ -1,14 +1,11 @@
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microservice.Api.Filters;
-using Microservice.Db;
 using Microservice.Logic.Config;
 using Microservice.Logic.PipelineBehaviours;
 using Microservice.Logic.Validators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -46,11 +43,8 @@ namespace Microservice.Api
                     config.RegisterValidatorsFromAssemblyContaining<CreateOrderValidator>();
                 })
                 ;
-            services.AddDbContext<MicroserviceDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("MicroserviceDbContext")));
 
             services.ConfigureLogic(Configuration);
-
             services.AddMediatR(typeof(ConfigureServiceCollectionExtensions).Assembly);
             //Domain Level Validation
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
