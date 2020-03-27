@@ -34,6 +34,7 @@ namespace Microservice.Api.Integration.Tests
                 {
                     builder.ConfigureServices(services =>
                     {
+                        services.RemoveAll(typeof(DbContextOptions));
                         services.RemoveAll(typeof(MicroserviceDbContext));
                         services.AddDbContext<MicroserviceDbContext>(options =>
                         {
