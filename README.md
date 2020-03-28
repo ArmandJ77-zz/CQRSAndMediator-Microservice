@@ -21,7 +21,7 @@ This origionally started as a demo project for my medium article [Why and how I 
 - RabbitMQ (up next)
 - Redis (on roadmap)
 - Hangfire (on roadmap)
-- Swagger
+- Swagger (at some point)
 
 ## Roadmap
 
