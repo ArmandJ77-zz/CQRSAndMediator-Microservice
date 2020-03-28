@@ -35,3 +35,6 @@ Future feature to include:
 - Health checks to monitor service
 - Swagger
 - GraphQL (investigate trade offs)
+- Extend DB layer with infrastructure to facilitate (long)LastModifiedBy,(UTCDateTime)LastModifiedDate,(long)CreatedBy,(UTCDateTime)CreatedDate on resource update and create
+- Extend DB layer with infrastructure to facilitate soft deletes i.e Set IsDeleted prop on a record to true
+- Extend Db layer with infrastructure to exclude IsDeleted reccords from db queries i.e add a query filter
