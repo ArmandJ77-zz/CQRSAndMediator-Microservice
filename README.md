@@ -28,7 +28,7 @@ This origionally started as a demo project for my medium article [Why and how I 
 Features planned for next development cycle:
 - RabbitMQ support (Investigate if I can implement the infrastructure as an optional package) 
 
-Future feature to include:
+Future features to include:
 - Redis cache management on route level i.e cached responses
 - Redis cache management for custom resources i.e custom cache managment accross multiple handlers
 - Hangfire support for running background tasks using redis as a backing store
