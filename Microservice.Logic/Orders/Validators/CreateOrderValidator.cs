@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Microservice.Logic.Commands;
+using Microservice.Logic.Orders.Commands;
 
-namespace Microservice.Logic.Validators
+namespace Microservice.Logic.Orders.Validators
 {
     public class CreateOrderValidator : AbstractValidator<CreateOrderCommand>
     {

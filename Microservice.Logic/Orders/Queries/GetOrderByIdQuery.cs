@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using Microservice.Logic.Responses;
+using Microservice.Logic.Orders.Responses;
 
-namespace Microservice.Logic.Queries
+namespace Microservice.Logic.Orders.Queries
 {
     public class GetOrderByIdQuery : IRequest<OrderResponse>
     {

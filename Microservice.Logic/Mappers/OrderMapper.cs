@@ -1,6 +1,6 @@
 ﻿using Microservice.Db.EntityModels;
 using Microservice.Logic.Model;
-using Microservice.Logic.Responses;
+using Microservice.Logic.Orders.Responses;
 
 namespace Microservice.Logic.Mappers
 {

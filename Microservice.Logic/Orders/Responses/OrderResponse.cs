@@ -1,4 +1,4 @@
-﻿namespace Microservice.Logic.Responses
+﻿namespace Microservice.Logic.Orders.Responses
 {
     public class OrderResponse
     {

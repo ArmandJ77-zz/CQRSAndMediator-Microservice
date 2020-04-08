@@ -1,20 +1,23 @@
-﻿using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microservice.Db;
 using Microservice.Db.EntityModels;
-using Microservice.Logic.Commands;
 using Microservice.Logic.Mappers;
-using Microservice.Logic.Responses;
+using Microservice.Logic.Orders.Commands;
+using Microservice.Logic.Orders.Responses;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace Microservice.Logic.Handlers
+namespace Microservice.Logic.Orders.Handlers
 {
-    public class PatchOrderHandler : BaseHandler, IRequestHandler<PatchOrderCommand, OrderResponse>
+    public class PatchOrderHandler :  IRequestHandler<PatchOrderCommand, OrderResponse>
     {
-        public PatchOrderHandler(MicroserviceDbContext dbContext, IMediator mediator) : base(dbContext, mediator)
+        private readonly MicroserviceDbContext _dbContext;
+
+        public PatchOrderHandler(MicroserviceDbContext dbContext)
         {
+            _dbContext = dbContext;
         }
 
         public async Task<OrderResponse> Handle(PatchOrderCommand command, CancellationToken cancellationToken)

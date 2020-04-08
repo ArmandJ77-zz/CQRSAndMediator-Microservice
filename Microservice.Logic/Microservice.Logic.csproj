@@ -13,4 +13,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Microservice.Db\Microservice.Db.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="PipelineBehaviours\" />
+  </ItemGroup>
 </Project>

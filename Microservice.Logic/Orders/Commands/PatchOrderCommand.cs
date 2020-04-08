@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microservice.Logic.Model;
-using Microservice.Logic.Responses;
+using Microservice.Logic.Orders.Responses;
 using Microsoft.AspNetCore.JsonPatch;
 
-namespace Microservice.Logic.Commands
+namespace Microservice.Logic.Orders.Commands
 {
     public class PatchOrderCommand : IRequest<OrderResponse>
     {

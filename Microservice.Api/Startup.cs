@@ -2,8 +2,7 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using Microservice.Api.Filters;
 using Microservice.Logic.Config;
-using Microservice.Logic.PipelineBehaviours;
-using Microservice.Logic.Validators;
+using Microservice.Logic.Orders.Validators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -34,20 +33,20 @@ namespace Microservice.Api
             services
                 .AddControllers()
                 .AddNewtonsoftJson();
-
             services
                 .AddMvc(options => { options.Filters.Add<ValidationFilter>(); })
                 // API Level Validation
                 .AddFluentValidation(config =>
                 {
                     config.RegisterValidatorsFromAssemblyContaining<CreateOrderValidator>();
-                })
-                ;
+                });
 
             services.ConfigureLogic(Configuration);
+
             services.AddMediatR(typeof(ConfigureServiceCollectionExtensions).Assembly);
             //Domain Level Validation
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehaviour<,>));
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

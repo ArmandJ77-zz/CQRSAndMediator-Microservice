@@ -1,7 +1,5 @@
 ﻿using Microservice.Api.Integration.Tests.Infrastructure;
 using Microservice.Db;
-using Microservice.Logic.Commands;
-using Microservice.Logic.Responses;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +13,8 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microservice.Db.EntityModels;
+using Microservice.Logic.Orders.Commands;
+using Microservice.Logic.Orders.Responses;
 using Microsoft.AspNetCore.JsonPatch;
 
 namespace Microservice.Api.Integration.Tests

@@ -1,18 +1,21 @@
 ﻿using MediatR;
 using Microservice.Db;
 using Microservice.Db.EntityModels;
-using Microservice.Logic.Commands;
-using Microservice.Logic.Responses;
+using Microservice.Logic.Mappers;
+using Microservice.Logic.Orders.Commands;
+using Microservice.Logic.Orders.Responses;
 using System.Threading;
 using System.Threading.Tasks;
-using Microservice.Logic.Mappers;
 
-namespace Microservice.Logic.Handlers
+namespace Microservice.Logic.Orders.Handlers
 {
-    public class CreateOrderHandler: BaseHandler,IRequestHandler<CreateOrderCommand, OrderResponse>
+    public class CreateOrderHandler: IRequestHandler<CreateOrderCommand, OrderResponse>
     {
-        public CreateOrderHandler(MicroserviceDbContext dbContext, IMediator mediator) : base(dbContext, mediator)
+        private readonly MicroserviceDbContext _dbContext;
+
+        public CreateOrderHandler(MicroserviceDbContext dbContext)
         {
+            _dbContext = dbContext;
         }
 
         public async Task<OrderResponse> Handle(CreateOrderCommand request, CancellationToken cancellationToken)

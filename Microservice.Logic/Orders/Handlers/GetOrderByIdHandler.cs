@@ -1,17 +1,20 @@
 ﻿using MediatR;
 using Microservice.Db;
 using Microservice.Logic.Mappers;
-using Microservice.Logic.Queries;
-using Microservice.Logic.Responses;
+using Microservice.Logic.Orders.Queries;
+using Microservice.Logic.Orders.Responses;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microservice.Logic.Handlers
+namespace Microservice.Logic.Orders.Handlers
 {
-    public class GetOrderByIdHandler : BaseHandler, IRequestHandler<GetOrderByIdQuery, OrderResponse>
+    public class GetOrderByIdHandler : IRequestHandler<GetOrderByIdQuery, OrderResponse>
     {
-        public GetOrderByIdHandler(MicroserviceDbContext dbContext, IMediator mediator) : base(dbContext, mediator)
+        private readonly MicroserviceDbContext _dbContext;
+
+        public GetOrderByIdHandler(MicroserviceDbContext dbContext)
         {
+            _dbContext = dbContext;
         }
 
         public async Task<OrderResponse> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)

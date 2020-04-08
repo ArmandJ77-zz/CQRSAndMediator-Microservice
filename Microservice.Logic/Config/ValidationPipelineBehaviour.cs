@@ -1,18 +1,18 @@
-﻿using FluentValidation;
-using MediatR;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentValidation;
+using MediatR;
 
-namespace Microservice.Logic.PipelineBehaviours
+namespace Microservice.Logic.Config
 {
-    public class ValidationBehaviour<TRequest,TResponse> : IPipelineBehavior<TRequest,TResponse> 
+    public class ValidationPipelineBehaviour<TRequest,TResponse> : IPipelineBehavior<TRequest,TResponse> 
     where TRequest : IRequest<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
-        public ValidationBehaviour(IEnumerable<IValidator<TRequest>> validators)
+        public ValidationPipelineBehaviour(IEnumerable<IValidator<TRequest>> validators)
         {
             _validators = validators;
         }
@@ -25,8 +25,6 @@ namespace Microservice.Logic.PipelineBehaviours
                 .SelectMany(x => x.Errors)
                 .Where(x => x != null)
                 .ToList();
-
-            // TODO: add context to which command/query is throwing the exception and its origination
 
             if (failures.Any())
             {
