@@ -58,7 +58,6 @@ namespace Microservice.Api.Integration.Tests
             });
 
             // Act
-
             var response = await _client.PostAsJsonAsync("/orders", createCustomerOrderCommand);
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
             var result = response.Content.Deserialize<OrderResponse>().Result;
