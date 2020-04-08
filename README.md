@@ -2,9 +2,9 @@
 
 # CRUD-CQRS-MEDIATOR-MICROSERVICE
 
-This origionally started as a demo project for my medium article [Why and how I implemented CQRS and Mediator patterns in a microservice](https://medium.com/@armandjordaan6/why-and-how-i-implemented-cqrs-and-mediator-patterns-in-a-microservice-b07034592b6d). 
+This origionally started as a demo project for my medium article [Why and how I implemented CQRS and Mediator patterns in a microservice](https://medium.com/@armandjordaan6/why-and-how-i-implemented-cqrs-and-mediator-patterns-in-a-microservice-b07034592b6d).
 
-## PATTERNS 
+## PATTERNS
 
 - CQRS
 - Mediator
@@ -23,12 +23,24 @@ This origionally started as a demo project for my medium article [Why and how I 
 - Hangfire (on roadmap)
 - Swagger (at some point)
 
+## GETTING STARTED
+
+### Docker
+
+When Development/Testing
+
+```
+docker-compose -f docker-compose.testing.yml up -d
+```
+
 ## Roadmap
 
 Features planned for next development cycle:
-- RabbitMQ support (Investigate if I can implement the infrastructure as an optional package) 
+
+- RabbitMQ support (Investigate if I can implement the infrastructure as an optional package)
 
 Future features to include:
+
 - Redis cache management on route level i.e cached responses
 - Redis cache management for custom resources i.e custom cache managment accross multiple handlers
 - Hangfire support for running background tasks using redis as a backing store
