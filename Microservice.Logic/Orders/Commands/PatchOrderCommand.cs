@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Microservice.Logic.Model;
+using Microservice.Logic.Orders.Models;
 using Microservice.Logic.Orders.Responses;
 using Microsoft.AspNetCore.JsonPatch;
 

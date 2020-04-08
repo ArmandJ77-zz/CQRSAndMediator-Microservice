@@ -1,4 +1,4 @@
-﻿namespace Microservice.Logic.Model
+﻿namespace Microservice.Logic.Orders.Models
 {
     public class OrderPatchModel
     {

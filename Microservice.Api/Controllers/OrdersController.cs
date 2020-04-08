@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microservice.Logic.Model;
 using Microservice.Logic.Orders.Commands;
+using Microservice.Logic.Orders.Models;
 using Microservice.Logic.Orders.Queries;
 
 namespace Microservice.Api.Controllers

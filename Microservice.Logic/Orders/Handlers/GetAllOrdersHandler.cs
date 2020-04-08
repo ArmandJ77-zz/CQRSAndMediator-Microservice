@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microservice.Db;
-using Microservice.Logic.Mappers;
 using Microservice.Logic.Orders.Queries;
 using Microservice.Logic.Orders.Responses;
 using Microsoft.EntityFrameworkCore;
