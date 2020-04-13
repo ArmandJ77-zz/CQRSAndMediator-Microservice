@@ -5,7 +5,7 @@ namespace Microservice.RabbitMessageBroker.Configuration
 {
     public static class RabbitMessageBrokerClientConfiguration
     {
-        public static IServiceCollection ConfigureMessageBroker(this IServiceCollection container, IConfigurationSection configuration)
+        public static IServiceCollection AddRabbitMqMessageBroker(this IServiceCollection container, IConfigurationSection configuration)
         {
             container
                 .Configure<RabbitMessageBrokerSettings>(configuration)
