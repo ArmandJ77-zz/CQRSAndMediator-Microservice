@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microservice.Logic.Orders.Commands;
 using Microservice.Logic.Orders.Models;
 using Microservice.Logic.Orders.Queries;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 
 namespace Microservice.Api.Controllers
 {

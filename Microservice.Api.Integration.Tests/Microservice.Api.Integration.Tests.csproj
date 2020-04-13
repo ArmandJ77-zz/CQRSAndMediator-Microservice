@@ -25,10 +25,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Microservice.Api\Microservice.Api.csproj" />
+    <ProjectReference Include="..\Microservice.RabbitMessagebus\Microservice.RabbitMessageBroker.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Api", "Microse
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Api.Integration.Tests", "Microservice.Api.Integration.Tests\Microservice.Api.Integration.Tests.csproj", "{DB4CCEE9-3EC9-4EE9-97F8-D8446C819CE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice.Logic", "Microservice.Logic\Microservice.Logic.csproj", "{3C91F130-7A2F-41A3-AFC6-8ABD130D81A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Logic", "Microservice.Logic\Microservice.Logic.csproj", "{3C91F130-7A2F-41A3-AFC6-8ABD130D81A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice.Db", "Microservice.Db\Microservice.Db.csproj", "{7C21B678-85AB-4E2C-8193-159F98D169E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Db", "Microservice.Db\Microservice.Db.csproj", "{7C21B678-85AB-4E2C-8193-159F98D169E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice.RabbitMessageBroker", "Microservice.RabbitMessagebus\Microservice.RabbitMessageBroker.csproj", "{9353B3B0-3AF3-402B-ACAA-7FE69660C889}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7C21B678-85AB-4E2C-8193-159F98D169E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C21B678-85AB-4E2C-8193-159F98D169E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C21B678-85AB-4E2C-8193-159F98D169E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9353B3B0-3AF3-402B-ACAA-7FE69660C889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9353B3B0-3AF3-402B-ACAA-7FE69660C889}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9353B3B0-3AF3-402B-ACAA-7FE69660C889}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9353B3B0-3AF3-402B-ACAA-7FE69660C889}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
