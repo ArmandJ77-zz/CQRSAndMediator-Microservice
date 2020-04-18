@@ -1,21 +1,24 @@
 ﻿using Microservice.Api.Integration.Tests.Infrastructure;
 using Microservice.Db;
-using Microsoft.AspNetCore.Hosting;
+using Microservice.Db.EntityModels;
+using Microservice.Logic.Orders.Commands;
+using Microservice.Logic.Orders.Responses;
+using Microservice.RabbitMessageBroker.Configuration;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using NUnit.Framework;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
-using Microservice.Db.EntityModels;
-using Microservice.Logic.Orders.Commands;
-using Microservice.Logic.Orders.Responses;
-using Microsoft.AspNetCore.JsonPatch;
 
 namespace Microservice.Api.Integration.Tests
 {
@@ -28,7 +31,6 @@ namespace Microservice.Api.Integration.Tests
         [OneTimeSetUp]
         public void Setup()
         {
-
             _factory = new WebApplicationFactory<Startup>()
                 .WithWebHostBuilder(builder =>
                 {
@@ -156,6 +158,124 @@ namespace Microservice.Api.Integration.Tests
 
             // Assert
             StringAssert.AreEqualIgnoringCase($"PROD: zero one", result.Name);
+        }
+
+        [Test]
+        public async Task Given_CreateOrder_Publish_OrderCreatedEvent_Expect_OrderCreatedEvent_From_MessageBroker()
+        {
+
+        }
+//        [Test]
+//        public async Task RabbitMQFanOutPublishTest()
+//        {
+//            var settings = new RabbitMessageBrokerSettings
+//            {
+//                Host = "localhost",
+//                Port = 15672,
+//                Password = "guest",
+//                UserName = "guest"
+//            };
+//
+//            var factory = new ConnectionFactory() { HostName = "localhost" };
+//            using (var connection = factory.CreateConnection())
+//            using (var channel = connection.CreateModel())
+//            {
+//                channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
+//
+//                var message = GetMessage();
+//                var body = Encoding.UTF8.GetBytes(message);
+//                channel.BasicPublish(exchange: "logs",
+//                    routingKey: "",
+//                    basicProperties: null,
+//                    body: body);
+//                Console.WriteLine(" [x] Sent {0}", message);
+//            }
+//
+//            var subfactory = new ConnectionFactory() { HostName = "localhost" };
+//            using (var connection = subfactory.CreateConnection())
+//            using (var channel = connection.CreateModel())
+//            {
+//                channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
+//
+//                var queueName = channel.QueueDeclare().QueueName;
+//                channel.QueueBind(queue: queueName,
+//                    exchange: "logs",
+//                    routingKey: "");
+//
+//                Console.WriteLine(" [*] Waiting for logs.");
+//
+//                var consumer = new EventingBasicConsumer(channel);
+//                consumer.Received += (model, ea) =>
+//                {
+//                    var body = ea.Body;
+//                    var message = Encoding.UTF8.GetString(body);
+//                    Console.WriteLine(" [x] {0}", message);
+//                };
+//                channel.BasicConsume(queue: queueName,
+//                    autoAck: true,
+//                    consumer: consumer);
+//
+//                Console.WriteLine(" Press [enter] to exit.");
+//                Console.ReadLine();
+//            }
+//        }
+//
+//        [Test]
+//        public async Task RabbitMQDirectPublishTest()
+//        {
+//            var factory = new ConnectionFactory() { HostName = "localhost" };
+//            using (var connection = factory.CreateConnection())
+//            using (var channel = connection.CreateModel())
+//            {
+//                channel.QueueDeclare(queue: "hello",
+//                    durable: false,
+//                    exclusive: false,
+//                    autoDelete: false,
+//                    arguments: null);
+//
+//                string message = "Hello World!";
+//                var body = Encoding.UTF8.GetBytes(message);
+//
+//                channel.BasicPublish(exchange: "",
+//                    routingKey: "hello",
+//                    basicProperties: null,
+//                    body: body);
+//
+//            }
+//        }
+//
+//        [Test]
+//        public async Task RabbitMQDirectSubscribeTest()
+//        {
+//            var factory = new ConnectionFactory() { HostName = "localhost" };
+//            using (var connection = factory.CreateConnection())
+//            using (var channel = connection.CreateModel())
+//            {
+//                channel.QueueDeclare(queue: "hello",
+//                    durable: false,
+//                    exclusive: false,
+//                    autoDelete: false,
+//                    arguments: null);
+//
+//                var consumer = new EventingBasicConsumer(channel);
+//                consumer.Received += (model, ea) =>
+//                {
+//                    var body = ea.Body;
+//                    var message = Encoding.UTF8.GetString(body);
+//                    Console.WriteLine(" [x] Received {0}", message);
+//                };
+//                channel.BasicConsume(queue: "hello",
+//                    autoAck: true,
+//                    consumer: consumer);
+//
+//                Console.WriteLine(" Press [enter] to exit.");
+//                Console.ReadLine();
+//            }
+//        }
+
+        private static string GetMessage()
+        {
+            return "info: Hello World!";
         }
     }
 }
