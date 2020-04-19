@@ -26,6 +26,8 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
+    - name: Install dotnet-ef tool
+      run: dotnet tool install --global dotnet-ef --version 3.1.0
     - name: Apply Migrations
       run: dotnet ef database update -s Microservice.Api.csproj -p Microservice.Db.csproj -c MicroserviceDbContext
     - name: Test
