@@ -37,7 +37,10 @@ docker-compose -f docker-compose.testing.yml up -d
 
 NOTE: You can change the db name in the Microservice.Db project remember to also update the connection settings in the Microservice.Api appsettings.json
 
-### CLI Tool
+
+## Additional Links
+- [PROJECT BOARD](https://github.com/users/ArmandJ77/projects/1)
+- CLI Tool
 Can be found at [CQRSAndMediator-Scaffolding](https://github.com/ArmandJ77/CQRSAndMediator-Scaffolding) with extensions for backgroundjobs, event publish and subscribe wireups still to come.
 
 What it does:
@@ -51,7 +54,6 @@ Features planned for next development cycle:
 - Move RabbitMQ Messagebroker implementation into a nuget package
 - Move Hangfire implementation into a nuget package
 
-NOTE: Can track development tasks [here](https://github.com/users/ArmandJ77/projects/1)
 
 Future features to include:
 
