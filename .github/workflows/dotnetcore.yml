@@ -29,3 +29,4 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
     - name: Shutdown docker test container
+      run: docker-compose stop
