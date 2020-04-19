@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     env:
       ASPNETCORE_ENVIRONMENT: IntegrationTesting
@@ -19,6 +18,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
+    - name: Start docker test container
+      run: docker-compose -f docker-compose.testing.yml up -d
+    - name: Check running containers
+      run: docker ps -a
     - name: Install dependencies
       run: dotnet restore
     - name: Build
