@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using Hangfire;
+﻿using Hangfire;
 using Hangfire.Dashboard;
-using Hangfire.Pro.Redis;
 using Microservice.HanfireWithRedisBackingStore.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using Hangfire.PostgreSql;
 
 namespace Microservice.HanfireWithRedisBackingStore.Configuration
 {
@@ -23,18 +22,14 @@ namespace Microservice.HanfireWithRedisBackingStore.Configuration
                 .Configure<BackgroundJobServerSettings>(config)
                 ;
 
-            if (!string.IsNullOrEmpty(settings.RedisConnectionString))
+            if (!string.IsNullOrEmpty(settings.ConnectionString))
             {
                 services
                     .AddHangfire(o => o
                         .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                         .UseSimpleAssemblyNameTypeSerializer()
                         .UseRecommendedSerializerSettings()
-                        .UseBatches(new TimeSpan(7, 0, 0, 0))
-                        .UseRedisStorage(settings.RedisConnectionString, new RedisStorageOptions
-                        {
-                            Database = settings.RedisDatabaseNumber
-                        })
+                        .UsePostgreSqlStorage(settings.ConnectionString)
                     );
             }
 
@@ -50,7 +45,7 @@ namespace Microservice.HanfireWithRedisBackingStore.Configuration
 
             var settings = app.ApplicationServices.GetService<IOptionsMonitor<BackgroundJobServerSettings>>();
 
-            if (!string.IsNullOrEmpty(settings.CurrentValue.RedisConnectionString))
+            if (!string.IsNullOrEmpty(settings.CurrentValue.ConnectionString))
                 app
                     .UseHangfireServer(new BackgroundJobServerOptions
                     {

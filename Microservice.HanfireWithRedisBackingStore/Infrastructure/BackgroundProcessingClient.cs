@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Hangfire;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Hangfire;
-using Hangfire.Batches;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Microservice.HanfireWithRedisBackingStore.Infrastructure
 {
@@ -15,15 +14,6 @@ namespace Microservice.HanfireWithRedisBackingStore.Infrastructure
         {
             _serviceProvider = serviceProvider;
         }
-        public string StartNewBatch(Action<IBatchAction> action, string description)
-            => BatchJob.StartNew(action, description);
-
-        public string ContinueBatchWith(
-            string batchId,
-            Action<IBatchAction> action,
-            string description = null,
-            BatchContinuationOptions continuationOptions = BatchContinuationOptions.OnlyOnSucceededState)
-            => BatchJob.ContinueBatchWith(batchId, action, description, continuationOptions);
 
         public string Enqueue(Expression<Action> action)
             => BackgroundJob.Enqueue(action);
