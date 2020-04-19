@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationParts;
 namespace Microservice.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class OrdersController : ControllerBase
     {
         private readonly IMediator _mediator;
