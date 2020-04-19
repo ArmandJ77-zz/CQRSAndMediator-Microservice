@@ -3,21 +3,16 @@ using Microservice.Db;
 using Microservice.Db.EntityModels;
 using Microservice.Logic.Orders.Commands;
 using Microservice.Logic.Orders.Responses;
-using Microservice.RabbitMessageBroker.Configuration;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using NUnit.Framework;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Microservice.Api.Integration.Tests
@@ -27,7 +22,7 @@ namespace Microservice.Api.Integration.Tests
     {
         private WebApplicationFactory<Startup> _factory;
         private HttpClient _client;
-
+        private string PathBuilder(string extension) => $"api/{extension}";
         [OneTimeSetUp]
         public void Setup()
         {
@@ -60,7 +55,7 @@ namespace Microservice.Api.Integration.Tests
             });
 
             // Act
-            var response = await _client.PostAsJsonAsync("/orders", createCustomerOrderCommand);
+            var response = await _client.PostAsJsonAsync(PathBuilder("orders"), createCustomerOrderCommand);
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
             var result = response.Content.Deserialize<OrderResponse>().Result;
 
@@ -85,7 +80,7 @@ namespace Microservice.Api.Integration.Tests
             });
 
             // Act
-            var response = await _client.GetAsync($"/orders/{order.Id}");
+            var response = await _client.GetAsync(PathBuilder($"orders/{order.Id}"));
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             var result = response.Content.Deserialize<OrderResponse>().Result;
 
@@ -122,7 +117,7 @@ namespace Microservice.Api.Integration.Tests
                 db.Orders.AddRange(order1, order2, order3);
             });
 
-            var response = await _client.GetAsync($"/orders");
+            var response = await _client.GetAsync(PathBuilder($"orders"));
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             var result = response.Content.Deserialize<List<OrderResponse>>().Result;
 
@@ -152,7 +147,7 @@ namespace Microservice.Api.Integration.Tests
             });
 
             // Act
-            var response = await _client.PatchAsJsonAsync($"/orders/update/{origionalOrder.Id}/77", patchDoc);
+            var response = await _client.PatchAsJsonAsync(PathBuilder($"orders/update/{origionalOrder.Id}/77"), patchDoc);
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             var result = response.Content.Deserialize<OrderResponse>().Result;
 
@@ -165,113 +160,6 @@ namespace Microservice.Api.Integration.Tests
         {
 
         }
-//        [Test]
-//        public async Task RabbitMQFanOutPublishTest()
-//        {
-//            var settings = new RabbitMessageBrokerSettings
-//            {
-//                Host = "localhost",
-//                Port = 15672,
-//                Password = "guest",
-//                UserName = "guest"
-//            };
-//
-//            var factory = new ConnectionFactory() { HostName = "localhost" };
-//            using (var connection = factory.CreateConnection())
-//            using (var channel = connection.CreateModel())
-//            {
-//                channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
-//
-//                var message = GetMessage();
-//                var body = Encoding.UTF8.GetBytes(message);
-//                channel.BasicPublish(exchange: "logs",
-//                    routingKey: "",
-//                    basicProperties: null,
-//                    body: body);
-//                Console.WriteLine(" [x] Sent {0}", message);
-//            }
-//
-//            var subfactory = new ConnectionFactory() { HostName = "localhost" };
-//            using (var connection = subfactory.CreateConnection())
-//            using (var channel = connection.CreateModel())
-//            {
-//                channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
-//
-//                var queueName = channel.QueueDeclare().QueueName;
-//                channel.QueueBind(queue: queueName,
-//                    exchange: "logs",
-//                    routingKey: "");
-//
-//                Console.WriteLine(" [*] Waiting for logs.");
-//
-//                var consumer = new EventingBasicConsumer(channel);
-//                consumer.Received += (model, ea) =>
-//                {
-//                    var body = ea.Body;
-//                    var message = Encoding.UTF8.GetString(body);
-//                    Console.WriteLine(" [x] {0}", message);
-//                };
-//                channel.BasicConsume(queue: queueName,
-//                    autoAck: true,
-//                    consumer: consumer);
-//
-//                Console.WriteLine(" Press [enter] to exit.");
-//                Console.ReadLine();
-//            }
-//        }
-//
-//        [Test]
-//        public async Task RabbitMQDirectPublishTest()
-//        {
-//            var factory = new ConnectionFactory() { HostName = "localhost" };
-//            using (var connection = factory.CreateConnection())
-//            using (var channel = connection.CreateModel())
-//            {
-//                channel.QueueDeclare(queue: "hello",
-//                    durable: false,
-//                    exclusive: false,
-//                    autoDelete: false,
-//                    arguments: null);
-//
-//                string message = "Hello World!";
-//                var body = Encoding.UTF8.GetBytes(message);
-//
-//                channel.BasicPublish(exchange: "",
-//                    routingKey: "hello",
-//                    basicProperties: null,
-//                    body: body);
-//
-//            }
-//        }
-//
-//        [Test]
-//        public async Task RabbitMQDirectSubscribeTest()
-//        {
-//            var factory = new ConnectionFactory() { HostName = "localhost" };
-//            using (var connection = factory.CreateConnection())
-//            using (var channel = connection.CreateModel())
-//            {
-//                channel.QueueDeclare(queue: "hello",
-//                    durable: false,
-//                    exclusive: false,
-//                    autoDelete: false,
-//                    arguments: null);
-//
-//                var consumer = new EventingBasicConsumer(channel);
-//                consumer.Received += (model, ea) =>
-//                {
-//                    var body = ea.Body;
-//                    var message = Encoding.UTF8.GetString(body);
-//                    Console.WriteLine(" [x] Received {0}", message);
-//                };
-//                channel.BasicConsume(queue: "hello",
-//                    autoAck: true,
-//                    consumer: consumer);
-//
-//                Console.WriteLine(" Press [enter] to exit.");
-//                Console.ReadLine();
-//            }
-//        }
 
         private static string GetMessage()
         {
