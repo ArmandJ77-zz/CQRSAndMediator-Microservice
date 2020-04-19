@@ -1,5 +1,7 @@
 ![.NET Core](https://github.com/ArmandJ77/CQRSAndMediator-Microservice/workflows/.NET%20Core/badge.svg?branch=master)
 [![HitCount](http://hits.dwyl.com/ArmandJ77/https://githubcom/ArmandJ77/CQRSAndMediator-Microservice.svg)](http://hits.dwyl.com/ArmandJ77/https://githubcom/ArmandJ77/CQRSAndMediator-Microservice)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # MICROSERVICE TEMPLATE FOR CQRS AND MEDIATOR PATTERNS
 
 ## WHAT PROBLEM DOES THIS SOLVE
