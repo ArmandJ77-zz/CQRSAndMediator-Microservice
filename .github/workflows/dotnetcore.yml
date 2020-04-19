@@ -26,5 +26,7 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
+    - name: Apply Migrations
+      run: dotnet ef database update -s Microservice.Api\Microservice.Api.csproj -p Microservice.Db\Microservice.Db.csproj -c MicroserviceDbContext
     - name: Test
       run: dotnet test --no-restore --verbosity normal
