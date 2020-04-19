@@ -40,7 +40,7 @@ namespace Microservice.Api
                 .AddDatabase(_configuration.GetConnectionString("Database"))
                 .AddLogic(_configuration)
                 .AddMediatR(typeof(LogicServiceCollectionExtensions).Assembly)
-                //.AddMessageBroker(_configuration.GetSection("MessageBrokerSettings"))
+                .AddMessageBroker(_configuration.GetSection("MessageBrokerSettings"))
                 //.AddBackgroundJobServer(_configuration.GetSection("BackgroundJobServerSettings"))
                 ;
         }
