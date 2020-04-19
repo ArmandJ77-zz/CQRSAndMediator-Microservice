@@ -21,7 +21,7 @@ namespace Microservice.Api.MessageBus.OrderSubscriptions.Subscriptions
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _mediator.
+            throw new NotImplementedException();
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
