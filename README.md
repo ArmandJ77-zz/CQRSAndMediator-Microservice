@@ -1,8 +1,12 @@
 ![.NET Core](https://github.com/ArmandJ77/CQRSAndMediator-Microservice/workflows/.NET%20Core/badge.svg?branch=master)
 
-# CRUD-CQRS-MEDIATOR-MICROSERVICE
+# MICROSERVICE TEMPLATE FOR CQRS AND MEDIATOR PATTERNS
+
+## WHAT PROBLEM DOES THIS SOLVE
 
 This origionally started as a demo project for my medium article [Why and how I implemented CQRS and Mediator patterns in a microservice](https://medium.com/@armandjordaan6/why-and-how-i-implemented-cqrs-and-mediator-patterns-in-a-microservice-b07034592b6d).
+
+This repo focuses on providing a C# dotnet core 3.1 microservice template with all the boilerplate setup completed, which enables the developer to start implementing their domain asap without having to go through the new service setup and the teething issues that goes along with it.
 
 ## PATTERNS
 
@@ -18,10 +22,8 @@ This origionally started as a demo project for my medium article [Why and how I 
 - NUnit
 - Docker
 - Docker-Compose
-- RabbitMQ (up next)
-- Redis (on roadmap)
-- Hangfire (on roadmap)
-- Swagger (at some point)
+- RabbitMQ
+- Hangfire with Postgres as the backing store
 
 ## GETTING STARTED
 
@@ -33,11 +35,15 @@ When Development/Testing
 docker-compose -f docker-compose.testing.yml up -d
 ```
 
+NOTE: You can change the db name in the Microservice.Db project remember to also update the connection settings in the Microservice.Api appsettings.json
+
 ## Roadmap
 
 Features planned for next development cycle:
 
-- RabbitMQ support (Investigate if I can implement the infrastructure as an optional package)
+- Refactor RabbitMQ and Hangfire for a more streamlined implementation
+- Move RabbitMQ Messagebroker implementation into a nuget package
+- Move Hangfire implementation into a nuget package
 
 Future features to include:
 
@@ -50,3 +56,5 @@ Future features to include:
 - Extend DB layer with infrastructure to facilitate (long)LastModifiedBy,(UTCDateTime)LastModifiedDate,(long)CreatedBy,(UTCDateTime)CreatedDate on resource update and create
 - Extend DB layer with infrastructure to facilitate soft deletes i.e Set IsDeleted prop on a record to true
 - Extend Db layer with infrastructure to exclude IsDeleted reccords from db queries i.e add a query filter
+- Hangfire support *DONE
+- RabbitMQ support *DONE
