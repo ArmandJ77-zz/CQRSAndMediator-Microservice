@@ -155,11 +155,11 @@ namespace Microservice.Api.Integration.Tests
             StringAssert.AreEqualIgnoringCase($"PROD: zero one", result.Name);
         }
 
-        [Test]
-        public async Task Given_CreateOrder_Publish_OrderCreatedEvent_Expect_OrderCreatedEvent_From_MessageBroker()
-        {
-
-        }
+//        [Test]
+//        public async Task Given_CreateOrder_Publish_OrderCreatedEvent_Expect_OrderCreatedEvent_From_MessageBroker()
+//        {
+//
+//        }
 
         private static string GetMessage()
         {
