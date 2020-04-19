@@ -37,6 +37,12 @@ docker-compose -f docker-compose.testing.yml up -d
 
 NOTE: You can change the db name in the Microservice.Db project remember to also update the connection settings in the Microservice.Api appsettings.json
 
+### CLI Tool
+Can be found at [CQRSAndMediator-Scaffolding](https://github.com/ArmandJ77/CQRSAndMediator-Scaffolding) with extensions for backgroundjobs, event publish and subscribe wireups still to come.
+
+What it does:
+> A dotnet CLI tool which follows the CQRS and Mediator patterns to auto generate commands, queries, responses and handlers in the domain layer using Roslyn API for code generation.
+
 ## Roadmap
 
 Features planned for next development cycle:
