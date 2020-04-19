@@ -41,7 +41,7 @@ namespace Microservice.Api
                 .AddLogic(_configuration)
                 .AddMediatR(typeof(LogicServiceCollectionExtensions).Assembly)
                 .AddMessageBroker(_configuration.GetSection("MessageBrokerSettings"))
-                .AddBackgroundJobServer(_configuration.GetSection("BackgroundJobServerSettings"))
+               // .AddBackgroundJobServer(_configuration.GetSection("BackgroundJobServerSettings"))
                 ;
         }
 
