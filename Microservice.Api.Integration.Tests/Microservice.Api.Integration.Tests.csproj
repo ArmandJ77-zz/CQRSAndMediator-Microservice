@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Microservice.Api\Microservice.Api.csproj" />
-    <ProjectReference Include="..\Microservice.RabbitMessagebus\Microservice.RabbitMessageBroker.csproj" />
   </ItemGroup>
 
 </Project>
