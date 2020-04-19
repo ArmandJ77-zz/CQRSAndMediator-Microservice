@@ -23,7 +23,7 @@ namespace Microservice.RabbitMessageBroker.Integration.Tests
             var services = new ServiceCollection();
 
             services
-                .AddRabbitMqMessageBroker(config.GetSection("RabbitMessageBrokerSettings"))
+                .AddMessageBroker(config.GetSection("RabbitMessageBrokerSettings"))
                 .AddLogging();
 
             MessageBrokerClient = services.BuildServiceProvider().GetService<IRabbitMessageBrokerClient>();

@@ -21,9 +21,9 @@ namespace Microservice.RabbitMessageBroker
         private IModel _channel { get; set; }
 
         private readonly ILogger<RabbitMessageBrokerClient> _logger;
-        private readonly IOptions<RabbitMessageBrokerSettings> _options;
+        private readonly IOptions<MessageBrokerSettings> _options;
         private readonly IMessageBrokerDefaultLogger _defaultLogger;
-        public RabbitMessageBrokerClient(ILogger<RabbitMessageBrokerClient> logger, IOptions<RabbitMessageBrokerSettings> options)
+        public RabbitMessageBrokerClient(ILogger<RabbitMessageBrokerClient> logger, IOptions<MessageBrokerSettings> options)
         {
             _logger = logger;
             _options = options;
