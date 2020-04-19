@@ -1,6 +1,6 @@
 ﻿using Microservice.Logic.Orders.Events;
-using Microservice.RabbitMessageBroker;
 using System.Threading.Tasks;
+using Microservice.RabbitMessageBroker;
 
 namespace Microservice.Logic.Orders.Integration
 {

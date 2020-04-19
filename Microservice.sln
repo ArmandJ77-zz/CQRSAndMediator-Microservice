@@ -11,11 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Logic", "Micro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Db", "Microservice.Db\Microservice.Db.csproj", "{7C21B678-85AB-4E2C-8193-159F98D169E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.RabbitMessageBroker", "Microservice.RabbitMessagebus\Microservice.RabbitMessageBroker.csproj", "{9353B3B0-3AF3-402B-ACAA-7FE69660C889}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.RabbitMessageBroker.Integration.Tests", "Microservice.RabbitMessageBroker.Integration.Tests\Microservice.RabbitMessageBroker.Integration.Tests.csproj", "{40BDA940-4DE3-45BD-B6B8-9761B9F5DA77}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice.HangfireBackgroundJobServer", "Microservice.HanfireWithRedisBackingStore\Microservice.HangfireBackgroundJobServer.csproj", "{97758D56-E4D8-499B-8D42-C4F42474A24D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.RabbitMessageBroker", "Microservice.RabbitMessageBroker\Microservice.RabbitMessageBroker.csproj", "{C58B170B-B159-4549-8DE1-5DC229535139}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +39,6 @@ Global
 		{7C21B678-85AB-4E2C-8193-159F98D169E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C21B678-85AB-4E2C-8193-159F98D169E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C21B678-85AB-4E2C-8193-159F98D169E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9353B3B0-3AF3-402B-ACAA-7FE69660C889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9353B3B0-3AF3-402B-ACAA-7FE69660C889}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9353B3B0-3AF3-402B-ACAA-7FE69660C889}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9353B3B0-3AF3-402B-ACAA-7FE69660C889}.Release|Any CPU.Build.0 = Release|Any CPU
 		{40BDA940-4DE3-45BD-B6B8-9761B9F5DA77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{40BDA940-4DE3-45BD-B6B8-9761B9F5DA77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40BDA940-4DE3-45BD-B6B8-9761B9F5DA77}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{97758D56-E4D8-499B-8D42-C4F42474A24D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97758D56-E4D8-499B-8D42-C4F42474A24D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97758D56-E4D8-499B-8D42-C4F42474A24D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C58B170B-B159-4549-8DE1-5DC229535139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C58B170B-B159-4549-8DE1-5DC229535139}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C58B170B-B159-4549-8DE1-5DC229535139}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C58B170B-B159-4549-8DE1-5DC229535139}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

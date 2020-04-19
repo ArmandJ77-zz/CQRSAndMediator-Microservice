@@ -2,7 +2,6 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using Microservice.Api.Filters;
 using Microservice.Db.Configuration;
-using Microservice.HanfireWithRedisBackingStore.Configuration;
 using Microservice.Logic.Configuration;
 using Microservice.Logic.Orders.Validators;
 using Microservice.RabbitMessageBroker.Configuration;

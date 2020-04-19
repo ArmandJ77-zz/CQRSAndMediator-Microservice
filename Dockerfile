@@ -4,6 +4,8 @@ COPY ./NuGet.Config ./Microservice.sln ./
 COPY ./Microservice.Api/*.csproj ./Microservice.Api/
 COPY ./Microservice.Db/*.csproj ./Microservice.Db/
 COPY ./Microservice.Logic/*.csproj ./Microservice.Logic/
+COPY ./Microservice.RabbitMessageBroker/*.csproj ./Microservice.RabbitMessageBroker/
+COPY ./Microservice.RabbitMessageBroker.Integration.Tests/*.csproj ./Microservice.RabbitMessageBroker.Integration.Tests/
 COPY ./Microservice.Api.Integration.Tests/*.csproj ./Microservice.Api.Integration.Tests/
 RUN dotnet restore
 

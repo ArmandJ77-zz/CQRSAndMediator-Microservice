@@ -1,9 +1,9 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using Microservice.RabbitMessageBroker.Configuration;
+﻿using Microservice.RabbitMessageBroker.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Microservice.RabbitMessageBroker.Integration.Tests
 {
