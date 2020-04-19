@@ -1,21 +1,19 @@
 ﻿using Microservice.Api.Integration.Tests.Infrastructure;
 using Microservice.Db;
-using Microservice.Logic.Commands;
-using Microservice.Logic.Responses;
-using Microsoft.AspNetCore.Hosting;
+using Microservice.Db.EntityModels;
+using Microservice.Logic.Orders.Commands;
+using Microservice.Logic.Orders.Responses;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microservice.Db.EntityModels;
-using Microsoft.AspNetCore.JsonPatch;
 
 namespace Microservice.Api.Integration.Tests
 {
@@ -24,11 +22,10 @@ namespace Microservice.Api.Integration.Tests
     {
         private WebApplicationFactory<Startup> _factory;
         private HttpClient _client;
-
+        private string PathBuilder(string extension) => $"api/{extension}";
         [OneTimeSetUp]
         public void Setup()
         {
-
             _factory = new WebApplicationFactory<Startup>()
                 .WithWebHostBuilder(builder =>
                 {
@@ -58,8 +55,7 @@ namespace Microservice.Api.Integration.Tests
             });
 
             // Act
-
-            var response = await _client.PostAsJsonAsync("/orders", createCustomerOrderCommand);
+            var response = await _client.PostAsJsonAsync(PathBuilder("orders"), createCustomerOrderCommand);
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
             var result = response.Content.Deserialize<OrderResponse>().Result;
 
@@ -84,7 +80,7 @@ namespace Microservice.Api.Integration.Tests
             });
 
             // Act
-            var response = await _client.GetAsync($"/orders/{order.Id}");
+            var response = await _client.GetAsync(PathBuilder($"orders/{order.Id}"));
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             var result = response.Content.Deserialize<OrderResponse>().Result;
 
@@ -121,7 +117,7 @@ namespace Microservice.Api.Integration.Tests
                 db.Orders.AddRange(order1, order2, order3);
             });
 
-            var response = await _client.GetAsync($"/orders");
+            var response = await _client.GetAsync(PathBuilder($"orders"));
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             var result = response.Content.Deserialize<List<OrderResponse>>().Result;
 
@@ -151,12 +147,23 @@ namespace Microservice.Api.Integration.Tests
             });
 
             // Act
-            var response = await _client.PatchAsJsonAsync($"/orders/update/{origionalOrder.Id}/77", patchDoc);
+            var response = await _client.PatchAsJsonAsync(PathBuilder($"orders/update/{origionalOrder.Id}/77"), patchDoc);
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             var result = response.Content.Deserialize<OrderResponse>().Result;
 
             // Assert
             StringAssert.AreEqualIgnoringCase($"PROD: zero one", result.Name);
+        }
+
+//        [Test]
+//        public async Task Given_CreateOrder_Publish_OrderCreatedEvent_Expect_OrderCreatedEvent_From_MessageBroker()
+//        {
+//
+//        }
+
+        private static string GetMessage()
+        {
+            return "info: Hello World!";
         }
     }
 }

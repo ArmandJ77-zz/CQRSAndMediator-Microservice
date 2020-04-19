@@ -1,9 +1,11 @@
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microservice.Api.Filters;
-using Microservice.Logic.Config;
-using Microservice.Logic.PipelineBehaviours;
-using Microservice.Logic.Validators;
+using Microservice.Db.Configuration;
+using Microservice.HanfireWithRedisBackingStore.Configuration;
+using Microservice.Logic.Configuration;
+using Microservice.Logic.Orders.Validators;
+using Microservice.RabbitMessageBroker.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -14,59 +16,50 @@ namespace Microservice.Api
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options => options.AddPolicy("Default", builder =>
-            {
-                builder
-                    .AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
-            }));
-
             services
+                .AddCors()
                 .AddControllers()
-                .AddNewtonsoftJson();
+                .AddNewtonsoftJson()
+                ;
 
             services
                 .AddMvc(options => { options.Filters.Add<ValidationFilter>(); })
-                // API Level Validation
-                .AddFluentValidation(config =>
-                {
-                    config.RegisterValidatorsFromAssemblyContaining<CreateOrderValidator>();
-                })
+                .AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<CreateOrderValidator>())
                 ;
 
-            services.ConfigureLogic(Configuration);
-            services.AddMediatR(typeof(ConfigureServiceCollectionExtensions).Assembly);
-            //Domain Level Validation
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+            services
+                .AddDatabase(_configuration.GetConnectionString("Database"))
+                .AddLogic(_configuration)
+                .AddMediatR(typeof(LogicServiceCollectionExtensions).Assembly)
+                .AddMessageBroker(_configuration.GetSection("MessageBrokerSettings"))
+                .AddBackgroundJobServer(_configuration.GetSection("BackgroundJobServerSettings"))
+                ;
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
 
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app
+                .UseBackgroundJobServerDashboard()
+                .UseHttpsRedirection()
+                .UseRouting()
+                .UseAuthorization()
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                })
+                ;
         }
     }
 }

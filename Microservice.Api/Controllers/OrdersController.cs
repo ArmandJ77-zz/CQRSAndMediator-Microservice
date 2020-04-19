@@ -1,16 +1,16 @@
 ﻿using MediatR;
-using Microservice.Logic.Commands;
-using Microservice.Logic.Queries;
-using Microservice.Logic.Responses;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microservice.Logic.Model;
+using Microservice.Logic.Orders.Commands;
+using Microservice.Logic.Orders.Models;
+using Microservice.Logic.Orders.Queries;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 
 namespace Microservice.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class OrdersController : ControllerBase
     {
         private readonly IMediator _mediator;
