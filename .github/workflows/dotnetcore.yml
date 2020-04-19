@@ -31,6 +31,6 @@ jobs:
     - name: List directory
       run: file *
     - name: Apply Migrations
-      run: dotnet ef database update -s Microservice.Api.csproj -p Microservice.Db.csproj -c MicroserviceDbContext
+      run: dotnet ef database update -s Microservice.Api/Microservice.Api.csproj -p Microservice.Db/Microservice.Db.csproj -c MicroserviceDbContext
     - name: Test
       run: dotnet test --no-restore --verbosity normal
