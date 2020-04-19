@@ -10,7 +10,7 @@ namespace Microservice.RabbitMessageBroker.Configuration
             container
                 .Configure<MessageBrokerSettings>(configuration)
                 ;
-            
+
             return container
                 .AddSingleton<IRabbitMessageBrokerClient, RabbitMessageBrokerClient>();
         }
