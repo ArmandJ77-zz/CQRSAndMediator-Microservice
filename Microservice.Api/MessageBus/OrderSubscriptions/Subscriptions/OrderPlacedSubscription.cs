@@ -21,12 +21,12 @@ namespace Microservice.Api.MessageBus.OrderSubscriptions.Subscriptions
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            _mediator.
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
     }
 }
