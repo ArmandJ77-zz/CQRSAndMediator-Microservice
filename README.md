@@ -45,6 +45,8 @@ Features planned for next development cycle:
 - Move RabbitMQ Messagebroker implementation into a nuget package
 - Move Hangfire implementation into a nuget package
 
+NOTE: Can track development tasks [here](https://github.com/users/ArmandJ77/projects/1)
+
 Future features to include:
 
 - Redis cache management on route level i.e cached responses
