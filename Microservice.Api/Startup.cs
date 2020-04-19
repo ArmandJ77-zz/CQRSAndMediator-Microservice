@@ -2,6 +2,7 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using Microservice.Api.Filters;
 using Microservice.Db.Configuration;
+using Microservice.HanfireWithRedisBackingStore.Configuration;
 using Microservice.Logic.Configuration;
 using Microservice.Logic.Orders.Validators;
 using Microservice.RabbitMessageBroker.Configuration;
@@ -40,27 +41,25 @@ namespace Microservice.Api
                 .AddLogic(_configuration)
                 .AddMediatR(typeof(LogicServiceCollectionExtensions).Assembly)
                 .AddMessageBroker(_configuration.GetSection("MessageBrokerSettings"))
-                //.AddBackgroundJobServer(_configuration.GetSection("BackgroundJobServerSettings"))
+                .AddBackgroundJobServer(_configuration.GetSection("BackgroundJobServerSettings"))
                 ;
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
 
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app
+                .UseBackgroundJobServerDashboard()
+                .UseHttpsRedirection()
+                .UseRouting()
+                .UseAuthorization()
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                })
+                ;
         }
     }
 }
