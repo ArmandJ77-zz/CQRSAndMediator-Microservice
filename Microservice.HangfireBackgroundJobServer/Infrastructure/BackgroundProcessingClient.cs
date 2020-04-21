@@ -1,10 +1,10 @@
-﻿using Hangfire;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Hangfire;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Microservice.HanfireWithRedisBackingStore.Infrastructure
+namespace Microservice.HangfireBackgroundJobServer.Infrastructure
 {
     public  class BackgroundProcessingClient : IBackgroundProcessingClient
     {

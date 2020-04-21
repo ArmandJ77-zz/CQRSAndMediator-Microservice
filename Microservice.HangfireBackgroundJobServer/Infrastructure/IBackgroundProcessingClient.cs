@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Microservice.HanfireWithRedisBackingStore.Infrastructure
+namespace Microservice.HangfireBackgroundJobServer.Infrastructure
 {
     public interface IBackgroundProcessingClient
     {

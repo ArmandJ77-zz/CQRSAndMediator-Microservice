@@ -2,7 +2,7 @@
 using Hangfire;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Microservice.HanfireWithRedisBackingStore.Infrastructure
+namespace Microservice.HangfireBackgroundJobServer.Infrastructure
 {
     public class BackgroundProcessActivator : JobActivator
     {
