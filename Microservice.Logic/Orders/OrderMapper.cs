@@ -1,6 +1,7 @@
 ﻿using Microservice.Db.EntityModels;
 using Microservice.Logic.Orders.Models;
 using Microservice.Logic.Orders.Responses;
+using Microservice.MessageBus.Orders.Events;
 
 namespace Microservice.Logic.Orders
 {
@@ -25,6 +26,18 @@ namespace Microservice.Logic.Orders
             };
 
             return result;
+        }
+
+        public static OrderCreatedEvent ToCreatedEvent(this Order order)
+        {
+            var result = new OrderCreatedEvent
+            {
+                Name = order.Name,
+                Id = order.Id
+            };
+
+            return result;
+
         }
     }
 }

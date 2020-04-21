@@ -1,10 +1,9 @@
-﻿using Microservice.Logic.Orders.Events;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microservice.RabbitMessageBroker;
 
-namespace Microservice.Logic.Orders.Integration
+namespace Microservice.MessageBus.Orders.Publishers
 {
-    public class OrderCreatedEventPublisher : IOrderCreatedEventPublisher
+    public class OrderCreatedEventPublisher: IMessageBusPublisher<OrderCreatedEventPublisher>
     {
         private IRabbitMessageBrokerClient BrokerClient { get; }
 
@@ -13,10 +12,9 @@ namespace Microservice.Logic.Orders.Integration
             BrokerClient = brokerClient;
         }
 
-        public async Task Publish(OrderCreatedEvent createdEvent)
+        public async Task Publish<TMessage>(TMessage createdEvent)
         {
             await BrokerClient.Publish("OrderCreated", createdEvent);
-
         }
     }
 }

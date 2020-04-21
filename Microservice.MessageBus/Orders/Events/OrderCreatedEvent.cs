@@ -1,4 +1,4 @@
-﻿namespace Microservice.Logic.Orders.Events
+﻿namespace Microservice.MessageBus.Orders.Events
 {
     public class OrderCreatedEvent
     {
