@@ -1,5 +1,9 @@
-﻿using Microservice.RabbitMessageBroker;
+﻿using Microservice.HangfireBackgroundJobServer.Infrastructure;
+using Microservice.RabbitMessageBroker;
 using Microservice.RabbitMessageBrokerHelpers.Builders;
+using Microservice.RabbitMessageBrokerHelpers.Handlers;
+using Microservice.RabbitMessageBrokerHelpers.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -7,9 +11,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microservice.RabbitMessageBrokerHelpers.Handlers;
-using Microservice.RabbitMessageBrokerHelpers.Models;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Microservice.RabbitMessageBrokerHelpers.BackgroundJobs
 {
@@ -22,13 +23,14 @@ namespace Microservice.RabbitMessageBrokerHelpers.BackgroundJobs
         private readonly MessageBrokerSubscriptionsConfigurationBuilder _configurationBuilder;
         private List<Action> _unsubscribeCallbacks;
 
-        public MessageBrokerSubscriptionBackgroundJob(MessageBrokerSubscriptionsConfigurationBuilder configurationBuilder, IServiceProvider serviceProvider, IRabbitMessageBrokerClient messageBrokerClient, ILogger<MessageBrokerSubscriptionBackgroundJob> logger, List<Action> unsubscribeCallbacks)
+        public MessageBrokerSubscriptionBackgroundJob(MessageBrokerSubscriptionsConfigurationBuilder configurationBuilder, IServiceProvider serviceProvider, IRabbitMessageBrokerClient messageBrokerClient, ILogger<MessageBrokerSubscriptionBackgroundJob> logger, List<Action> unsubscribeCallbacks, IBackgroundProcessingClient backgroundProcessingClient)
         {
             _configurationBuilder = configurationBuilder;
             _serviceProvider = serviceProvider;
             _messageBrokerClient = messageBrokerClient;
             _logger = logger;
             _unsubscribeCallbacks = unsubscribeCallbacks;
+            _backgroundProcessingClient = backgroundProcessingClient;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -68,7 +70,12 @@ namespace Microservice.RabbitMessageBrokerHelpers.BackgroundJobs
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            foreach (var unsubscribeCallback in _unsubscribeCallbacks)
+            {
+                unsubscribeCallback();
+            }
+
+            return Task.CompletedTask;
         }
     }
 }
