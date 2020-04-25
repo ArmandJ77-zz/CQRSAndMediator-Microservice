@@ -6,6 +6,7 @@ using Microservice.HangfireBackgroundJobServer.Configuration;
 using Microservice.Logic.Configuration;
 using Microservice.Logic.Orders.Validators;
 using Microservice.RabbitMessageBroker.Configuration;
+using Microservice.RabbitMessageBrokerHelpers.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -42,6 +43,11 @@ namespace Microservice.Api
                 .AddMediatR(typeof(LogicServiceCollectionExtensions).Assembly)
                 .AddMessageBroker(_configuration.GetSection("MessageBrokerSettings"))
                 .AddBackgroundJobServer(_configuration.GetSection("BackgroundJobServerSettings"))
+//                .AddMessageBrokerSubscriptions(x => 
+//                    x
+//                        .UsePool("Orders")
+////                        .Subscribe<OrderPlacedSubscriptionEvent,>("OrderPlaced")
+//                )
                 ;
         }
 

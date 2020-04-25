@@ -1,4 +1,4 @@
-﻿namespace Microservice.MessageBus.Orders.Events
+﻿namespace Microservice.Logic.Orders.Messagebus.Events
 {
     public class OrderPlacedSubscriptionEvent
     {
