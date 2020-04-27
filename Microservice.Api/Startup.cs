@@ -1,12 +1,12 @@
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microservice.Api.Configuration;
 using Microservice.Api.Filters;
 using Microservice.Db.Configuration;
 using Microservice.HangfireBackgroundJobServer.Configuration;
 using Microservice.Logic.Configuration;
 using Microservice.Logic.Orders.Validators;
 using Microservice.RabbitMessageBroker.Configuration;
-using Microservice.RabbitMessageBrokerHelpers.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,7 +27,7 @@ namespace Microservice.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddCors()
+                .AddCorsRules()
                 .AddControllers()
                 .AddNewtonsoftJson()
                 ;
