@@ -1,8 +1,8 @@
 ﻿using Microservice.Db.EntityModels;
+using Microservice.Logic.Orders.Commands;
 using Microservice.Logic.Orders.Messagebus.Events;
 using Microservice.Logic.Orders.Models;
 using Microservice.Logic.Orders.Responses;
-using Microservice.MessageBus.Orders.Events;
 
 namespace Microservice.Logic.Orders
 {
@@ -29,21 +29,15 @@ namespace Microservice.Logic.Orders
             return result;
         }
 
-        public static OrderPlacedCommand ToOrderPlacedCommand(
-            this OrderPlacedSubscriptionEvent orderPlacedSubscriptionEvent)
+        public static PlacedOrderCommand ToOrderPlacedCommand(
+            this OrderPlacedSubscriptionEvent subscriptionEvent)
         {
-            //TODO CONTINUE HERE
+            var result = new PlacedOrderCommand
+            {
+                Id = subscriptionEvent.Id
+            };
+
+            return result;
         }
-
-        //public static OrderCreatedEvent ToCreatedEvent(this Order order)
-        //{
-        //    var result = new OrderCreatedEvent
-        //    {
-        //        Name = order.Name,
-        //        Id = order.Id
-        //    };
-
-        //    return result;
-        //}
     }
 }
