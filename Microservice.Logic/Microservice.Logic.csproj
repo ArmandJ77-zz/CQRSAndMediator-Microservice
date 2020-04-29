@@ -12,6 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Microservice.Db\Microservice.Db.csproj" />
-    <ProjectReference Include="..\Microservice.MessageBus\Microservice.MessageBus.csproj" />
+    <ProjectReference Include="..\Microservice.RabbitMessageBrokerHelpers\Microservice.RabbitMessageBrokerHelpers.csproj" />
   </ItemGroup>
 </Project>

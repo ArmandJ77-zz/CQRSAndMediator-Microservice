@@ -1,6 +1,6 @@
-﻿namespace Microservice.MessageBus.Orders.Events
+﻿namespace Microservice.Logic.Orders.Events
 {
-    public class OrderCreatedEvent
+    public class OrderUpdatedEvent
     {
         public long Id { get; set; }
         public string Name { get; set; }

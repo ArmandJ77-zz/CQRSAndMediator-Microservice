@@ -1,6 +1,6 @@
 ﻿using Microservice.Db.EntityModels;
 using Microservice.Logic.Orders.Commands;
-using Microservice.Logic.Orders.Messagebus.Events;
+using Microservice.Logic.Orders.Events;
 using Microservice.Logic.Orders.Models;
 using Microservice.Logic.Orders.Responses;
 
@@ -35,6 +35,30 @@ namespace Microservice.Logic.Orders
             var result = new PlacedOrderCommand
             {
                 Id = subscriptionEvent.Id
+            };
+
+            return result;
+        }
+
+        public static OrderUpdatedEvent ToUpdatedEvent(
+            this Order order)
+        {
+            var result = new OrderUpdatedEvent
+            {
+                Id = order.Id,
+                Name = order.Name
+            };
+
+            return result;
+        }
+
+        public static OrderCreatedEvent ToCreatedEvent(
+            this Order order)
+        {
+            var result = new OrderCreatedEvent
+            {
+                Id = order.Id,
+                Name = order.Name
             };
 
             return result;

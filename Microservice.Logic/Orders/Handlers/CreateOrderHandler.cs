@@ -2,9 +2,8 @@
 using Microservice.Db;
 using Microservice.Db.EntityModels;
 using Microservice.Logic.Orders.Commands;
+using Microservice.Logic.Orders.EventPublishers;
 using Microservice.Logic.Orders.Responses;
-using Microservice.MessageBus;
-using Microservice.MessageBus.Orders.Publishers;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,9 +12,9 @@ namespace Microservice.Logic.Orders.Handlers
     public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, OrderResponse>
     {
         private readonly MicroserviceDbContext _dbContext;
-        private readonly IMessageBusPublisher<OrderCreatedEventPublisher> _createdEventPublisher;
+        private readonly OrderCreatedEventPublisher  _createdEventPublisher;
 
-        public CreateOrderHandler(MicroserviceDbContext dbContext, IMessageBusPublisher<OrderCreatedEventPublisher> createdEventPublisher)
+        public CreateOrderHandler(MicroserviceDbContext dbContext, OrderCreatedEventPublisher createdEventPublisher)
         {
             _dbContext = dbContext;
             _createdEventPublisher = createdEventPublisher;

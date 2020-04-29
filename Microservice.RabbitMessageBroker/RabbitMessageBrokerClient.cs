@@ -18,7 +18,7 @@ namespace Microservice.RabbitMessageBroker
 {
     public class RabbitMessageBrokerClient : IRabbitMessageBrokerClient
     {
-        private IModel _channel { get; set; }
+        private IModel Channel { get; set; }
 
         private readonly ILogger<RabbitMessageBrokerClient> _logger;
         private readonly IOptions<MessageBrokerSettings> _options;
@@ -76,10 +76,10 @@ namespace Microservice.RabbitMessageBroker
             if (_options.Value == null)
                 throw new Exception("RabbitMQ: Message broker client credentials not configured {@details}");
 
-            if (_channel == null || _channel.IsClosed)
-                _channel = await TryConnect(topic, subscriptionId);
+            if (Channel == null || Channel.IsClosed)
+                Channel = await TryConnect(topic, subscriptionId);
 
-            return _channel;
+            return Channel;
         }
 
         public Task<Action> Subscribe<T>(
