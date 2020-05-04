@@ -1,11 +1,10 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using Microservice.Logic.Orders.Commands;
 using Microservice.Logic.Orders.Models;
 using Microservice.Logic.Orders.Queries;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Microservice.Api.Controllers
 {
