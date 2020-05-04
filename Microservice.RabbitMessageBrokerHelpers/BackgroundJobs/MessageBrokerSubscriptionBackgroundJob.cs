@@ -28,14 +28,12 @@ namespace Microservice.RabbitMessageBrokerHelpers.BackgroundJobs
             IServiceProvider serviceProvider,
             IRabbitMessageBrokerClient messageBrokerClient,
             ILogger<MessageBrokerSubscriptionBackgroundJob> logger,
-            List<Action> unsubscribeCallbacks,
             IBackgroundProcessingClient backgroundProcessingClient)
         {
             _configurationBuilder = configurationBuilder;
             _serviceProvider = serviceProvider;
             _messageBrokerClient = messageBrokerClient;
             _logger = logger;
-            _unsubscribeCallbacks = unsubscribeCallbacks;
             _backgroundProcessingClient = backgroundProcessingClient;
         }
 
