@@ -21,5 +21,20 @@ namespace Microservice.RabbitMessageBrokerHelpers.Configuration
                     .AddHostedService<MessageBrokerSubscriptionBackgroundJob>()
                 ;
         }
+
+        public static IServiceCollection AddMessageBrokerPublishers(this IServiceCollection services,
+            Action<MessageBrokerSubscriptionsConfigurationBuilder> configure)
+        {
+            var configurationBuilder = new MessageBrokerSubscriptionsConfigurationBuilder();
+            configure.Invoke(configurationBuilder);
+
+            foreach (var subscription in configurationBuilder.Subscriptions)
+                services.AddTransient(subscription.Handler);
+
+            return services
+                    .AddSingleton(configurationBuilder)
+                    .AddHostedService<MessageBrokerSubscriptionBackgroundJob>()
+                ;
+        }
     }
 }

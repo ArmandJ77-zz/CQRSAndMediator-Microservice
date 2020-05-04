@@ -12,7 +12,7 @@ namespace Microservice.HangfireBackgroundJobServer.Configuration
 {
     public static class BackgroundJobServerServiceCollectionExtensions
     {
-        public static IServiceCollection AddBackgroundJobServer(this IServiceCollection services,
+        public static IServiceCollection AddHangfireBackgroundJobServer(this IServiceCollection services,
             IConfiguration config)
         {
             var settings = new BackgroundJobServerSettings();

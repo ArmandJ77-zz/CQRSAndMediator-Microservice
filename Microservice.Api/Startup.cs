@@ -45,15 +45,10 @@ namespace Microservice.Api
                 .AddDatabase(_configuration.GetConnectionString("Database"))
                 .AddLogic(_configuration)
                 .AddMediatR(typeof(LogicServiceCollectionExtensions).Assembly)
-                .AddMessageBroker(_configuration.GetSection("MessageBrokerSettings"))
-                .AddBackgroundJobServer(_configuration.GetSection("BackgroundJobServerSettings"))
-                .AddTransient<IOrderCreatedEventPublisher,OrderCreatedEventPublisher>()
-                .AddTransient<IOrderUpdatedEventPublisher,OrderUpdatedEventPublisher>()
-                .AddMessageBrokerSubscriptions(x =>
-                    x
-                        .UsePool("Orders")
-                                        .Subscribe<OrderPlacedSubscriptionEvent, OrderPlacedEventSubscriptionHandler>("OrderPlaced")
-                )
+                .AddRabbitMqMessageBroker(_configuration.GetSection("MessageBrokerSettings"))
+                .AddHangfireBackgroundJobServer(_configuration.GetSection("BackgroundJobServerSettings"))
+                .AddMessageBrokerCustomSubscriptions()
+                .AddMessageBrokerCustomPublishers()
                 ;
         }
 
