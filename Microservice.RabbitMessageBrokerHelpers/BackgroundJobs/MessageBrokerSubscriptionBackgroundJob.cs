@@ -23,7 +23,13 @@ namespace Microservice.RabbitMessageBrokerHelpers.BackgroundJobs
         private readonly MessageBrokerSubscriptionsConfigurationBuilder _configurationBuilder;
         private List<Action> _unsubscribeCallbacks;
 
-        public MessageBrokerSubscriptionBackgroundJob(MessageBrokerSubscriptionsConfigurationBuilder configurationBuilder, IServiceProvider serviceProvider, IRabbitMessageBrokerClient messageBrokerClient, ILogger<MessageBrokerSubscriptionBackgroundJob> logger, List<Action> unsubscribeCallbacks, IBackgroundProcessingClient backgroundProcessingClient)
+        public MessageBrokerSubscriptionBackgroundJob(
+            MessageBrokerSubscriptionsConfigurationBuilder configurationBuilder,
+            IServiceProvider serviceProvider,
+            IRabbitMessageBrokerClient messageBrokerClient,
+            ILogger<MessageBrokerSubscriptionBackgroundJob> logger,
+            List<Action> unsubscribeCallbacks,
+            IBackgroundProcessingClient backgroundProcessingClient)
         {
             _configurationBuilder = configurationBuilder;
             _serviceProvider = serviceProvider;
