@@ -17,6 +17,4 @@ namespace Microservice.Logic.Orders.EventPublishers
         public override async Task Publish(OrderCreatedEvent eventModel)
             => await BrokerClient.Publish("OrderCreated", eventModel);
     }
-
-
 }

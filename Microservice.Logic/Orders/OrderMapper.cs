@@ -29,12 +29,13 @@ namespace Microservice.Logic.Orders
             return result;
         }
 
-        public static PlacedOrderCommand ToOrderPlacedCommand(
+        public static PutPlacedOrderCommand ToPutPlacedOrderCommand(
             this OrderPlacedSubscriptionEvent subscriptionEvent)
         {
-            var result = new PlacedOrderCommand
+            var result = new PutPlacedOrderCommand
             {
-                Id = subscriptionEvent.Id
+                Id = subscriptionEvent.Id,
+                Quantity = subscriptionEvent.Quantity
             };
 
             return result;
