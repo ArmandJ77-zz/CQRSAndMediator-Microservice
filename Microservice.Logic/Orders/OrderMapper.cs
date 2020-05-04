@@ -13,7 +13,8 @@ namespace Microservice.Logic.Orders
             var result = new OrderResponse
             {
                 Id = order.Id,
-                Name = order.Name
+                Name = order.Name,
+                Quantity = order.Quantity
             };
 
             return result;
@@ -47,7 +48,8 @@ namespace Microservice.Logic.Orders
             var result = new OrderUpdatedEvent
             {
                 Id = order.Id,
-                Name = order.Name
+                Name = order.Name,
+                Quantity = order.Quantity
             };
 
             return result;
@@ -59,7 +61,8 @@ namespace Microservice.Logic.Orders
             var result = new OrderCreatedEvent
             {
                 Id = order.Id,
-                Name = order.Name
+                Name = order.Name,
+                Quantity = order.Quantity
             };
 
             return result;
