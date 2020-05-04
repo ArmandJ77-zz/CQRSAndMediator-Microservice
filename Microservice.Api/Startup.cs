@@ -6,8 +6,11 @@ using Microservice.Db.Configuration;
 using Microservice.HangfireBackgroundJobServer.Configuration;
 using Microservice.Logic.Configuration;
 using Microservice.Logic.Orders.EventPublishers;
+using Microservice.Logic.Orders.Events;
+using Microservice.Logic.Orders.EventSubscriptions;
 using Microservice.Logic.Orders.Validators;
 using Microservice.RabbitMessageBroker.Configuration;
+using Microservice.RabbitMessageBrokerHelpers.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -46,12 +49,11 @@ namespace Microservice.Api
                 .AddBackgroundJobServer(_configuration.GetSection("BackgroundJobServerSettings"))
                 .AddTransient<IOrderCreatedEventPublisher,OrderCreatedEventPublisher>()
                 .AddTransient<IOrderUpdatedEventPublisher,OrderUpdatedEventPublisher>()
-
-                //.AddMessageBrokerSubscriptions(x =>
-                //    x
-                //        .UsePool("Orders")
-                //                        .Subscribe<OrderPlacedSubscriptionEvent, OrderPlacedEventSubscription>("OrderPlaced")
-                //)
+                .AddMessageBrokerSubscriptions(x =>
+                    x
+                        .UsePool("Orders")
+                                        .Subscribe<OrderPlacedSubscriptionEvent, OrderPlacedEventSubscription>("OrderPlaced")
+                )
                 ;
         }
 

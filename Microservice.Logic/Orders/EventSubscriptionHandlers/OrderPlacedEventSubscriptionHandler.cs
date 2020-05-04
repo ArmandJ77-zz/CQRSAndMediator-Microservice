@@ -1,15 +1,15 @@
-﻿using MediatR;
+﻿using System.Threading.Tasks;
+using MediatR;
 using Microservice.Logic.Orders.Events;
 using Microservice.RabbitMessageBrokerHelpers.Handlers;
-using System.Threading.Tasks;
 
-namespace Microservice.Logic.Orders.EventSubscriptions
+namespace Microservice.Logic.Orders.EventSubscriptionHandlers
 {
-    public class OrderPlacedEventSubscription : MessageBrokerSubscriptionHandler<OrderPlacedSubscriptionEvent>
+    public class OrderPlacedEventSubscriptionHandler : MessageBrokerSubscriptionHandler<OrderPlacedSubscriptionEvent>
     {
         private readonly IMediator _mediator;
 
-        public OrderPlacedEventSubscription(IMediator mediator)
+        public OrderPlacedEventSubscriptionHandler(IMediator mediator)
         {
             _mediator = mediator;
         }
