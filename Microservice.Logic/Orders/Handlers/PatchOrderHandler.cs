@@ -14,9 +14,9 @@ namespace Microservice.Logic.Orders.Handlers
     public class PatchOrderHandler : IRequestHandler<PatchOrderCommand, OrderResponse>
     {
         private readonly MicroserviceDbContext _dbContext;
-        private readonly OrderUpdatedEventPublisher _updatedEventPublisher;
+        private readonly IOrderUpdatedEventPublisher _updatedEventPublisher;
 
-        public PatchOrderHandler(MicroserviceDbContext dbContext, OrderUpdatedEventPublisher updatedEventPublisher)
+        public PatchOrderHandler(MicroserviceDbContext dbContext, IOrderUpdatedEventPublisher updatedEventPublisher)
         {
             _dbContext = dbContext;
             _updatedEventPublisher = updatedEventPublisher;

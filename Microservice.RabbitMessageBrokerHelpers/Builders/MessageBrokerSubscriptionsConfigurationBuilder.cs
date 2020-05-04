@@ -9,6 +9,10 @@ namespace Microservice.RabbitMessageBrokerHelpers.Builders
         public List<MessageBrokerSubscription> Subscriptions;
         public string Pool;
 
+        public MessageBrokerSubscriptionsConfigurationBuilder()
+        {
+            Subscriptions = new List<MessageBrokerSubscription>();
+        }
         public MessageBrokerSubscriptionsConfigurationBuilder UsePool(string pool)
         {
             Pool = pool;

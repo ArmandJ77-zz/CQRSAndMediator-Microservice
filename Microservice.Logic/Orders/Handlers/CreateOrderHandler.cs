@@ -12,9 +12,9 @@ namespace Microservice.Logic.Orders.Handlers
     public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, OrderResponse>
     {
         private readonly MicroserviceDbContext _dbContext;
-        private readonly OrderCreatedEventPublisher  _createdEventPublisher;
+        private readonly IOrderCreatedEventPublisher _createdEventPublisher;
 
-        public CreateOrderHandler(MicroserviceDbContext dbContext, OrderCreatedEventPublisher createdEventPublisher)
+        public CreateOrderHandler(MicroserviceDbContext dbContext, IOrderCreatedEventPublisher createdEventPublisher)
         {
             _dbContext = dbContext;
             _createdEventPublisher = createdEventPublisher;
