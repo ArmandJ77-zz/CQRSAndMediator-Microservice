@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microservice.Logic.Orders.Events;
 using Microservice.RabbitMessageBrokerHelpers.Handlers;
+using System.Threading.Tasks;
 
 namespace Microservice.Logic.Orders.EventSubscriptionHandlers
 {
