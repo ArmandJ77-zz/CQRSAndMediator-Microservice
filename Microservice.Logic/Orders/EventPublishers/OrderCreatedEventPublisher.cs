@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Microservice.Logic.Orders.EventPublishers
 {
-    public class OrderCreatedEventPublisher : EventPublisher<OrderCreatedEvent>
+    public class OrderCreatedEventPublisher : EventPublisher<OrderCreatedEvent>,IOrderCreatedEventPublisher 
     {
         private IRabbitMessageBrokerClient BrokerClient { get; }
 
