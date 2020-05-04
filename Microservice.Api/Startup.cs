@@ -7,7 +7,7 @@ using Microservice.HangfireBackgroundJobServer.Configuration;
 using Microservice.Logic.Configuration;
 using Microservice.Logic.Orders.EventPublishers;
 using Microservice.Logic.Orders.Events;
-using Microservice.Logic.Orders.EventSubscriptions;
+using Microservice.Logic.Orders.EventSubscriptionHandlers;
 using Microservice.Logic.Orders.Validators;
 using Microservice.RabbitMessageBroker.Configuration;
 using Microservice.RabbitMessageBrokerHelpers.Configuration;
@@ -52,7 +52,7 @@ namespace Microservice.Api
                 .AddMessageBrokerSubscriptions(x =>
                     x
                         .UsePool("Orders")
-                                        .Subscribe<OrderPlacedSubscriptionEvent, OrderPlacedEventSubscription>("OrderPlaced")
+                                        .Subscribe<OrderPlacedSubscriptionEvent, OrderPlacedEventSubscriptionHandler>("OrderPlaced")
                 )
                 ;
         }
