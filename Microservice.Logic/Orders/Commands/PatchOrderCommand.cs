@@ -9,9 +9,10 @@ namespace Microservice.Logic.Orders.Commands
     {
         public long OrderId { get; }
         public long PersonId { get; }
+
         public JsonPatchDocument<OrderPatchModel> JsonPatchDocument { get; set; }
 
-        public PatchOrderCommand(long orderId, long personId,JsonPatchDocument<OrderPatchModel> jsonPatchDocument )
+        public PatchOrderCommand(long orderId, long personId, JsonPatchDocument<OrderPatchModel> jsonPatchDocument)
         {
             OrderId = orderId;
             PersonId = personId;

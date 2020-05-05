@@ -205,7 +205,59 @@ namespace Microservice.Api.Integration.Tests
                 tcs.SetResult(updatedEvent);
                 return tcs.Task;
             }
-
         }
+
+        [Test]
+        public async Task Given_PutOrderPlacedCommand_Which_Should_Publish_A_PutOrderPlacedEvent_Expect_OrderResponse_With_OrderPlacedEvent_Published()
+        {
+            // Arrange
+            const string topic = "OrderPlacedUpdated";
+            const string subscriptionId = "OrderPlacedUpdated_IntegrationTest";
+            var command = new PutOrderPlacedCommand(1, 5, 2);
+            var originationOrder = new Order
+            {
+                Id = 1,
+                Name = "product zero one",
+                Quantity = 10
+            };
+
+            _factory.Seed<Startup, MicroserviceDbContext>(db =>
+            {
+                db.Clear();
+                db.Orders.Add(originationOrder);
+            });
+
+            // Act
+            var response = await _client.PutAsJsonAsync(PathBuilder($"orders/place"), command);
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            var result = response.Content.Deserialize<OrderResponse>().Result;
+
+            var subscriptionResponse = await _messageBrokerClient.Subscribe<OrderPlacedEvent>(
+                topic,
+                subscriptionId,
+                AssertCallback,
+                c => c.UseBasicQos());
+
+            // Assert PutOrderPlaced Response
+            Assert.That(result.Quantity, Is.EqualTo(8));
+            Assert.That(result.Id, Is.EqualTo(originationOrder.Id));
+            StringAssert.AreEqualIgnoringCase(originationOrder.Name, result.Name);
+
+
+            // Assert Messagebus OrderCreatedEvent
+            Task AssertCallback(OrderPlacedEvent orderPlacedEvent)
+            {
+                var tcs = new TaskCompletionSource<OrderPlacedEvent>();
+
+                Assert.That(orderPlacedEvent.QuantityBeforeReduction, Is.EqualTo(originationOrder.Quantity));
+                Assert.That(orderPlacedEvent.Quantity, Is.EqualTo(result.Quantity));
+                Assert.That(result.Id, Is.EqualTo(originationOrder.Id));
+                StringAssert.AreEqualIgnoringCase(originationOrder.Name, result.Name);
+
+                tcs.SetResult(orderPlacedEvent);
+                return tcs.Task;
+            }
+        }
+
     }
 }

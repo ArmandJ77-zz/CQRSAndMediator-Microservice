@@ -25,7 +25,8 @@ namespace Microservice.Api.Configuration
         {
             services
                 .AddTransient<IOrderCreatedEventPublisher, OrderCreatedEventPublisher>()
-                .AddTransient<IOrderUpdatedEventPublisher, OrderUpdatedEventPublisher>()
+                .AddTransient<IOrderPatchedEventPublisher, OrderPatchedEventPublisher>()
+                .AddTransient<IOrderPlacedEventPublisher, OrderPlacedEventPublisher>()
                 ;
 
             return services;

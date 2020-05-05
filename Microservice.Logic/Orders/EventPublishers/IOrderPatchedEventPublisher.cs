@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Microservice.Logic.Orders.EventPublishers
 {
-    public interface IOrderUpdatedEventPublisher
+    public interface IOrderPatchedEventPublisher
     {
         Task Publish(OrderUpdatedEvent eventModel);
     }

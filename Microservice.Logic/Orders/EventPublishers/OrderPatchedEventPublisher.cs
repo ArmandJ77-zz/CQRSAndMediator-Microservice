@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Microservice.Logic.Orders.EventPublishers
 {
-    public class OrderUpdatedEventPublisher : EventPublisher<OrderUpdatedEvent>,IOrderUpdatedEventPublisher
+    public class OrderPatchedEventPublisher : EventPublisher<OrderUpdatedEvent>,IOrderPatchedEventPublisher
     {
         private IRabbitMessageBrokerClient BrokerClient { get; }
 
-        public OrderUpdatedEventPublisher(IRabbitMessageBrokerClient brokerClient)
+        public OrderPatchedEventPublisher(IRabbitMessageBrokerClient brokerClient)
         {
             BrokerClient = brokerClient;
         }

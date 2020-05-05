@@ -40,14 +40,15 @@ namespace Microservice.Logic.Orders
             return result;
         }
 
-        public static PutPlacedOrderCommand ToPutPlacedOrderCommand(
+        public static PutOrderPlacedCommand ToPutPlacedOrderCommand(
             this OrderPlacedSubscriptionEvent subscriptionEvent)
         {
-            var result = new PutPlacedOrderCommand
-            {
-                Id = subscriptionEvent.Id,
-                Quantity = subscriptionEvent.Quantity
-            };
+            var result = new PutOrderPlacedCommand
+            (
+                subscriptionEvent.Id,
+                subscriptionEvent.PersonId,
+                subscriptionEvent.Quantity
+            );
 
             return result;
         }
@@ -59,7 +60,22 @@ namespace Microservice.Logic.Orders
             {
                 Id = order.Id,
                 Name = order.Name,
-                Quantity = order.Quantity
+                Quantity = order.Quantity,
+            };
+
+            return result;
+        }
+
+        public static OrderPlacedEvent ToOrderPlacedEvent(
+            this Order order,
+            int quantityBeforeReduction)
+        {
+            var result = new OrderPlacedEvent
+            {
+                Id = order.Id,
+                Name = order.Name,
+                Quantity = order.Quantity,
+                QuantityBeforeReduction = quantityBeforeReduction
             };
 
             return result;
