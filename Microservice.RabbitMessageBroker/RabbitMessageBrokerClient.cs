@@ -197,6 +197,8 @@ namespace Microservice.RabbitMessageBroker
             };
         }
 
+
+
         public async Task<bool> Publish<T>(string topic, T message)
         {
             var tcs = new TaskCompletionSource<bool>();

@@ -23,8 +23,9 @@ namespace Microservice.RabbitMessageBroker.Integration.Tests
             var services = new ServiceCollection();
 
             services
-                .AddMessageBroker(config.GetSection("RabbitMessageBrokerSettings"))
-                .AddLogging();
+                .AddRabbitMqMessageBroker(config.GetSection("RabbitMessageBrokerSettings"))
+                .AddLogging()
+                ;
 
             MessageBrokerClient = services.BuildServiceProvider().GetService<IRabbitMessageBrokerClient>();
         }

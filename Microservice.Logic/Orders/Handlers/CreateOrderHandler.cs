@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microservice.Db;
-using Microservice.Db.EntityModels;
 using Microservice.Logic.Orders.Commands;
 using Microservice.Logic.Orders.EventPublishers;
 using Microservice.Logic.Orders.Responses;
@@ -22,10 +21,7 @@ namespace Microservice.Logic.Orders.Handlers
 
         public async Task<OrderResponse> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Order
-            {
-                Name = request.Name
-            };
+            var entity = request.ToCreateEntity();
 
             _dbContext.Orders.Add(entity);
             await _dbContext.SaveChangesAsync(cancellationToken);

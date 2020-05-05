@@ -8,6 +8,16 @@ namespace Microservice.Logic.Orders
 {
     public static class OrderMapper
     {
+        public static Order ToCreateEntity(this CreateOrderCommand command)
+        {
+            var result =  new Order
+            {
+                Name = command.Name,
+                Quantity = command.Quantity
+            };
+
+            return result;
+        }
         public static OrderResponse ToResponse(this Order order)
         {
             var result = new OrderResponse
