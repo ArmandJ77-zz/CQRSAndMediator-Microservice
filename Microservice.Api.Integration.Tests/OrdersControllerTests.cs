@@ -4,20 +4,11 @@ using Microservice.Db.EntityModels;
 using Microservice.Logic.Orders.Commands;
 using Microservice.Logic.Orders.Events;
 using Microservice.Logic.Orders.Responses;
-using Microservice.RabbitMessageBroker;
-using Microservice.RabbitMessageBroker.Configuration;
 using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using NUnit.Framework;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Microservice.Api.Integration.Tests
