@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Hangfire;
+using Hangfire.PostgreSql;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Hangfire;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Microservice.HangfireBackgroundJobServer.Infrastructure
 {
@@ -56,7 +57,6 @@ namespace Microservice.HangfireBackgroundJobServer.Infrastructure
 
             if (jobRunner == null)
                 throw new Exception("Could not activate recurring job. Ensure it is configured on the service provider");
-
             if (enabled)
                 RecurringJob.AddOrUpdate(
                     recurringJobId,

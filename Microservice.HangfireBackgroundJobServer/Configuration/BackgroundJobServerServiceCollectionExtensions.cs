@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Hangfire;
+﻿using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.PostgreSql;
 using Microservice.HangfireBackgroundJobServer.Infrastructure;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 
 namespace Microservice.HangfireBackgroundJobServer.Configuration
 {
@@ -22,10 +22,13 @@ namespace Microservice.HangfireBackgroundJobServer.Configuration
                 .Configure<BackgroundJobServerSettings>(config)
                 ;
 
+            JobStorage.Current = new PostgreSqlStorage(settings.ConnectionString);
+
             if (!string.IsNullOrEmpty(settings.ConnectionString))
             {
                 services
                     .AddHangfire(o => o
+                        
                         .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                         .UseSimpleAssemblyNameTypeSerializer()
                         .UseRecommendedSerializerSettings()

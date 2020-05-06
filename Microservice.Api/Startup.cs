@@ -4,6 +4,7 @@ using Microservice.Api.Configuration;
 using Microservice.Api.Filters;
 using Microservice.Db.Configuration;
 using Microservice.HangfireBackgroundJobServer.Configuration;
+using Microservice.Logic.BackgroundProcessing;
 using Microservice.Logic.Configuration;
 using Microservice.Logic.Orders.Validators;
 using Microservice.RabbitMessageBroker.Configuration;
@@ -45,6 +46,7 @@ namespace Microservice.Api
                 .AddHangfireBackgroundJobServer(_configuration.GetSection("BackgroundJobServerSettings"))
                 .AddMessageBrokerCustomSubscriptions()
                 .AddMessageBrokerCustomPublishers()
+                .AddBackgroundProcessing(_configuration)
                 ;
         }
 
