@@ -23,36 +23,11 @@ using System.Threading.Tasks;
 namespace Microservice.Api.Integration.Tests
 {
     [TestFixture]
-    public class OrdersControllerTests
+    public class OrdersControllerTests : BaseControllerTest
     {
-        private WebApplicationFactory<Startup> _factory;
-        private HttpClient _client;
-        private IRabbitMessageBrokerClient _messageBrokerClient;
-
-        private string PathBuilder(string extension) => $"api/{extension}";
-
-        [OneTimeSetUp]
-        public void Setup()
+        public OrdersControllerTests()
         {
-            var configBuilder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true);
-            var config = configBuilder.Build();
-
-            _factory = new WebApplicationFactory<Startup>()
-                .WithWebHostBuilder(builder =>
-                {
-                    builder.ConfigureServices(services =>
-                    {
-                        services.RemoveAll(typeof(DbContextOptions));
-                        services.RemoveAll(typeof(MicroserviceDbContext));
-                        services.AddDbContext<MicroserviceDbContext>();
-                        services.AddRabbitMqMessageBroker(config.GetSection("RabbitMessageBrokerSettings"));
-                    });
-                });
-
-            _client = _factory.CreateClient();
-            _messageBrokerClient = _factory.Services.GetService<IRabbitMessageBrokerClient>();
+            BaseRoute = "orders";
         }
 
         [Test]
@@ -63,16 +38,16 @@ namespace Microservice.Api.Integration.Tests
             const string subscriptionId = "OrderCreated_IntegrationTest";
             var createCommand = new CreateOrderCommand("Keyboard", 5);
 
-            _factory.Seed<Startup, MicroserviceDbContext>(db =>
+            Factory.Seed<Startup, MicroserviceDbContext>(db =>
             {
                 db.Clear();
             });
 
             // Act
-            var response = await _client.PostAsJsonAsync(PathBuilder("orders"), createCommand);
+            var response = await Client.PostAsJsonAsync(GetBaseRoute(), createCommand);
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
             var result = response.Content.Deserialize<OrderResponse>().Result;
-            var subscriptionResponse = await _messageBrokerClient.Subscribe<OrderCreatedEvent>(
+            var subscriptionResponse = await MessageBrokerClient.Subscribe<OrderCreatedEvent>(
                 topic,
                 subscriptionId,
                 AssertCallback,
@@ -105,14 +80,14 @@ namespace Microservice.Api.Integration.Tests
                 Name = "Testing command"
             };
 
-            _factory.Seed<Startup, MicroserviceDbContext>(db =>
+            Factory.Seed<Startup, MicroserviceDbContext>(db =>
             {
                 db.Clear();
                 db.Orders.Add(order);
             });
 
             // Act
-            var response = await _client.GetAsync(PathBuilder($"orders/{order.Id}"));
+            var response = await Client.GetAsync($"{GetBaseRoute()}/{order.Id}");
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             var result = response.Content.Deserialize<OrderResponse>().Result;
 
@@ -143,13 +118,13 @@ namespace Microservice.Api.Integration.Tests
                 Name = "Testing command"
             };
 
-            _factory.Seed<Startup, MicroserviceDbContext>(db =>
+            Factory.Seed<Startup, MicroserviceDbContext>(db =>
             {
                 db.Clear();
                 db.Orders.AddRange(order1, order2, order3);
             });
 
-            var response = await _client.GetAsync(PathBuilder($"orders"));
+            var response = await Client.GetAsync($"{GetBaseRoute()}");
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             var result = response.Content.Deserialize<List<OrderResponse>>().Result;
 
@@ -174,17 +149,17 @@ namespace Microservice.Api.Integration.Tests
 
             var operations = patchDoc.Operations.ToList();
 
-            _factory.Seed<Startup, MicroserviceDbContext>(db =>
+            Factory.Seed<Startup, MicroserviceDbContext>(db =>
             {
                 db.Clear();
                 db.Orders.Add(originationOrder);
             });
 
             // Act
-            var response = await _client.PatchAsJsonAsync(PathBuilder($"orders/update/{originationOrder.Id}/77"), patchDoc);
+            var response = await Client.PatchAsJsonAsync($"{GetBaseRoute()}/update/{originationOrder.Id}/77", patchDoc);
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             var result = response.Content.Deserialize<OrderResponse>().Result;
-            var subscriptionResponse = await _messageBrokerClient.Subscribe<OrderUpdatedEvent>(
+            var subscriptionResponse = await MessageBrokerClient.Subscribe<OrderUpdatedEvent>(
                 topic,
                 subscriptionId,
                 AssertCallback,
@@ -214,25 +189,25 @@ namespace Microservice.Api.Integration.Tests
             const string topic = "OrderPlacedUpdated";
             const string subscriptionId = "OrderPlacedUpdated_IntegrationTest";
             var command = new PutOrderPlacedCommand(1, 5, 2);
-            var originationOrder = new Order
+            var order = new Order
             {
                 Id = 1,
                 Name = "product zero one",
                 Quantity = 10
             };
 
-            _factory.Seed<Startup, MicroserviceDbContext>(db =>
+            Factory.Seed<Startup, MicroserviceDbContext>(db =>
             {
                 db.Clear();
-                db.Orders.Add(originationOrder);
+                db.Orders.Add(order);
             });
 
             // Act
-            var response = await _client.PutAsJsonAsync(PathBuilder($"orders/place"), command);
+            var response = await Client.PutAsJsonAsync($"{GetBaseRoute()}/place", command);
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             var result = response.Content.Deserialize<OrderResponse>().Result;
 
-            var subscriptionResponse = await _messageBrokerClient.Subscribe<OrderPlacedEvent>(
+            var subscriptionResponse = await MessageBrokerClient.Subscribe<OrderPlacedEvent>(
                 topic,
                 subscriptionId,
                 AssertCallback,
@@ -240,24 +215,24 @@ namespace Microservice.Api.Integration.Tests
 
             // Assert PutOrderPlaced Response
             Assert.That(result.Quantity, Is.EqualTo(8));
-            Assert.That(result.Id, Is.EqualTo(originationOrder.Id));
-            StringAssert.AreEqualIgnoringCase(originationOrder.Name, result.Name);
-
+            Assert.That(result.Id, Is.EqualTo(order.Id));
+            StringAssert.AreEqualIgnoringCase(order.Name, result.Name);
 
             // Assert Messagebus OrderCreatedEvent
             Task AssertCallback(OrderPlacedEvent orderPlacedEvent)
             {
                 var tcs = new TaskCompletionSource<OrderPlacedEvent>();
 
-                Assert.That(orderPlacedEvent.QuantityBeforeReduction, Is.EqualTo(originationOrder.Quantity));
+                Assert.That(orderPlacedEvent.QuantityBeforeReduction, Is.EqualTo(order.Quantity));
                 Assert.That(orderPlacedEvent.Quantity, Is.EqualTo(result.Quantity));
-                Assert.That(result.Id, Is.EqualTo(originationOrder.Id));
-                StringAssert.AreEqualIgnoringCase(originationOrder.Name, result.Name);
+                Assert.That(result.Id, Is.EqualTo(order.Id));
+                StringAssert.AreEqualIgnoringCase(order.Name, result.Name);
 
                 tcs.SetResult(orderPlacedEvent);
                 return tcs.Task;
             }
         }
 
+     
     }
 }
