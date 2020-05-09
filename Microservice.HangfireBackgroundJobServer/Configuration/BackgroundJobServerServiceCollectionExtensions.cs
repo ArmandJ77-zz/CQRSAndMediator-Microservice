@@ -22,13 +22,11 @@ namespace Microservice.HangfireBackgroundJobServer.Configuration
                 .Configure<BackgroundJobServerSettings>(config)
                 ;
 
-            JobStorage.Current = new PostgreSqlStorage(settings.ConnectionString);
 
             if (!string.IsNullOrEmpty(settings.ConnectionString))
             {
                 services
                     .AddHangfire(o => o
-                        
                         .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                         .UseSimpleAssemblyNameTypeSerializer()
                         .UseRecommendedSerializerSettings()
@@ -38,7 +36,7 @@ namespace Microservice.HangfireBackgroundJobServer.Configuration
 
             services
                 .AddTransient<IBackgroundProcessingClient, BackgroundProcessingClient>();
-
+        
             return services;
         }
 
