@@ -21,6 +21,7 @@ namespace Microservice.Logic.BackgroundProcessing
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
+
             _backgroundProcessingClient.ConfigureRecurringJob<HeartbeatRecurringJob>(
                 "Heartbeat",
                 _settings.CurrentValue.Heartbeat.Cron,
