@@ -27,8 +27,4 @@
     <ProjectReference Include="..\Microservice.RabbitMessageBrokerHelpers\Microservice.RabbitMessageBrokerHelpers.csproj" />
     <ProjectReference Include="..\Microservice.RabbitMessageBroker\Microservice.RabbitMessageBroker.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MessageBus\OrderSubscriptions\Subscriptions\" />
-  </ItemGroup>
 </Project>
