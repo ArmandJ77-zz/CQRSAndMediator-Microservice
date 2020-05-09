@@ -11,7 +11,10 @@ namespace Microservice.HangfireBackgroundJobServer.Infrastructure
         Task Run(Expression<Func<Task>> action);
         void RemoveRecurringJobIfExists(string recurringJobId);
 
-        void ConfigureRecurringJob<T>(string recurringJobId, string cronExpression, bool enabled = true)
+        void ConfigureRecurringJob<T>(
+            string recurringJobId, 
+            string cronExpression, 
+            bool enabled = true)
             where T : IRecurringJob;
     }
 }
