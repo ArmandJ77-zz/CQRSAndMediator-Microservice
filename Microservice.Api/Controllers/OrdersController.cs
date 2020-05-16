@@ -1,11 +1,10 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using Microservice.Logic.Orders.Commands;
 using Microservice.Logic.Orders.Models;
 using Microservice.Logic.Orders.Queries;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Microservice.Api.Controllers
 {
@@ -44,10 +43,17 @@ namespace Microservice.Api.Controllers
         }
 
         [HttpPatch("update/{id}/{personId}")]
-        public async Task<IActionResult> PatchOrder([FromRoute]long id,[FromRoute] long personId, [FromBody] JsonPatchDocument<OrderPatchModel> patchModel)
+        public async Task<IActionResult> PatchOrder([FromRoute]long id, [FromRoute] long personId, [FromBody] JsonPatchDocument<OrderPatchModel> patchModel)
         {
-            var command = new PatchOrderCommand(id,personId,patchModel);
+            var command = new PatchOrderCommand(id, personId, patchModel);
             var result = await _mediator.Send(command);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
+        }
+
+        [HttpPut("place")]
+        public async Task<IActionResult> PlaceOrder([FromBody]PutOrderPlacedCommand orderPlacedCommand)
+        {
+            var result = await _mediator.Send(orderPlacedCommand);
             return result != null ? (IActionResult)Ok(result) : NotFound();
         }
     }

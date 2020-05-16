@@ -6,12 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="8.6.1" />
-    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="MediatR" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Microservice.Db\Microservice.Db.csproj" />
-    <ProjectReference Include="..\Microservice.RabbitMessageBroker\Microservice.RabbitMessageBroker.csproj" />
+    <ProjectReference Include="..\Microservice.RabbitMessageBrokerHelpers\Microservice.RabbitMessageBrokerHelpers.csproj" />
   </ItemGroup>
 </Project>

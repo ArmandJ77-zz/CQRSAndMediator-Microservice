@@ -1,7 +1,7 @@
-﻿using Hangfire;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Hangfire;
 
-namespace Microservice.HanfireWithRedisBackingStore
+namespace Microservice.HangfireBackgroundJobServer
 {
     public  interface IRecurringJob
     {

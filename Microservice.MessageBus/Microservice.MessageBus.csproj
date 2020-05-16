@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="MediatR" Version="8.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Microservice.RabbitMessageBrokerHelpers\Microservice.RabbitMessageBrokerHelpers.csproj" />
+    <ProjectReference Include="..\Microservice.RabbitMessageBroker\Microservice.RabbitMessageBroker.csproj" />
+  </ItemGroup>
+
+</Project>

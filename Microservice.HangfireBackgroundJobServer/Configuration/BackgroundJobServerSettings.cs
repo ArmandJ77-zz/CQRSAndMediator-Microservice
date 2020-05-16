@@ -1,4 +1,4 @@
-﻿namespace Microservice.HanfireWithRedisBackingStore.Configuration
+﻿namespace Microservice.HangfireBackgroundJobServer.Configuration
 {
     public class BackgroundJobServerSettings
     {

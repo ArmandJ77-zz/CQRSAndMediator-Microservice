@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.RabbitMessageB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.HangfireBackgroundJobServer", "Microservice.HangfireBackgroundJobServer\Microservice.HangfireBackgroundJobServer.csproj", "{96C85DBD-DE58-4D02-A01B-E10D521CB089}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.RabbitMessageBrokerHelpers", "Microservice.RabbitMessageBrokerHelpers\Microservice.RabbitMessageBrokerHelpers.csproj", "{CB07E0EA-3F3A-43BE-A77D-4BC77DD24A80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{96C85DBD-DE58-4D02-A01B-E10D521CB089}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96C85DBD-DE58-4D02-A01B-E10D521CB089}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96C85DBD-DE58-4D02-A01B-E10D521CB089}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB07E0EA-3F3A-43BE-A77D-4BC77DD24A80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB07E0EA-3F3A-43BE-A77D-4BC77DD24A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB07E0EA-3F3A-43BE-A77D-4BC77DD24A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB07E0EA-3F3A-43BE-A77D-4BC77DD24A80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,10 @@
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microservice.Api.Configuration;
 using Microservice.Api.Filters;
 using Microservice.Db.Configuration;
-using Microservice.HanfireWithRedisBackingStore.Configuration;
+using Microservice.HangfireBackgroundJobServer.Configuration;
+using Microservice.Logic.BackgroundProcessing;
 using Microservice.Logic.Configuration;
 using Microservice.Logic.Orders.Validators;
 using Microservice.RabbitMessageBroker.Configuration;
@@ -26,7 +28,7 @@ namespace Microservice.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddCors()
+                .AddCorsRules()
                 .AddControllers()
                 .AddNewtonsoftJson()
                 ;
@@ -40,8 +42,11 @@ namespace Microservice.Api
                 .AddDatabase(_configuration.GetConnectionString("Database"))
                 .AddLogic(_configuration)
                 .AddMediatR(typeof(LogicServiceCollectionExtensions).Assembly)
-                .AddMessageBroker(_configuration.GetSection("MessageBrokerSettings"))
-                .AddBackgroundJobServer(_configuration.GetSection("BackgroundJobServerSettings"))
+                .AddRabbitMqMessageBroker(_configuration.GetSection("MessageBrokerSettings"))
+                .AddHangfireBackgroundJobServer(_configuration.GetSection("BackgroundJobServerSettings"))
+                .AddMessageBrokerCustomSubscriptions()
+                .AddMessageBrokerCustomPublishers()
+                .AddBackgroundProcessing(_configuration)
                 ;
         }
 

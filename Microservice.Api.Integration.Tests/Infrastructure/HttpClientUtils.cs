@@ -17,7 +17,7 @@ namespace Microservice.Api.Integration.Tests.Infrastructure
             return httpClient.PostAsync(url, content);
         }
 
-        public static Task<HttpResponseMessage> PutAsJsonAsync<T>(
+        public static Task<HttpResponseMessage>  PutAsJsonAsync<T>(
             this HttpClient httpClient, string url, T data)
         {
             var dataAsString = JsonConvert.SerializeObject(data);

@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Microservice.HanfireWithRedisBackingStore.Infrastructure
+namespace Microservice.HangfireBackgroundJobServer.Infrastructure
 {
     public interface IBackgroundProcessingClient
     {
@@ -11,7 +11,10 @@ namespace Microservice.HanfireWithRedisBackingStore.Infrastructure
         Task Run(Expression<Func<Task>> action);
         void RemoveRecurringJobIfExists(string recurringJobId);
 
-        void ConfigureRecurringJob<T>(string recurringJobId, string cronExpression, bool enabled = true)
+        void ConfigureRecurringJob<T>(
+            string recurringJobId, 
+            string cronExpression, 
+            bool enabled = true)
             where T : IRecurringJob;
     }
 }

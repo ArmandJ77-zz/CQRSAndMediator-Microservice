@@ -1,18 +1,23 @@
 ﻿using Hangfire;
+using Microservice.HangfireBackgroundJobServer.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Hangfire.PostgreSql;
 
-namespace Microservice.HanfireWithRedisBackingStore.Infrastructure
+namespace Microservice.HangfireBackgroundJobServer.Infrastructure
 {
     public  class BackgroundProcessingClient : IBackgroundProcessingClient
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly IOptions<BackgroundJobServerSettings> _options;
 
-        public BackgroundProcessingClient(IServiceProvider serviceProvider)
+        public BackgroundProcessingClient(IServiceProvider serviceProvider, IOptions<BackgroundJobServerSettings> options)
         {
             _serviceProvider = serviceProvider;
+            _options = options;
         }
 
         public string Enqueue(Expression<Action> action)
@@ -53,6 +58,7 @@ namespace Microservice.HanfireWithRedisBackingStore.Infrastructure
             where T : IRecurringJob
         {
             var jobRunner = _serviceProvider.CreateScope().ServiceProvider.GetService<T>();
+            JobStorage.Current = new PostgreSqlStorage(_options.Value.ConnectionString);
 
             if (jobRunner == null)
                 throw new Exception("Could not activate recurring job. Ensure it is configured on the service provider");

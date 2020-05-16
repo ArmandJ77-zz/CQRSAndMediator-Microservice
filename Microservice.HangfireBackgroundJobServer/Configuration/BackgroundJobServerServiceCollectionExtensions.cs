@@ -1,20 +1,18 @@
 ﻿using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.PostgreSql;
-using Microservice.HanfireWithRedisBackingStore.Infrastructure;
+using Microservice.HangfireBackgroundJobServer.Infrastructure;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
 
-namespace Microservice.HanfireWithRedisBackingStore.Configuration
+namespace Microservice.HangfireBackgroundJobServer.Configuration
 {
     public static class BackgroundJobServerServiceCollectionExtensions
     {
-        public static IServiceCollection AddBackgroundJobServer(this IServiceCollection services,
+        public static IServiceCollection AddHangfireBackgroundJobServer(this IServiceCollection services,
             IConfiguration config)
         {
             var settings = new BackgroundJobServerSettings();
@@ -23,6 +21,7 @@ namespace Microservice.HanfireWithRedisBackingStore.Configuration
             services
                 .Configure<BackgroundJobServerSettings>(config)
                 ;
+
 
             if (!string.IsNullOrEmpty(settings.ConnectionString))
             {
@@ -37,7 +36,7 @@ namespace Microservice.HanfireWithRedisBackingStore.Configuration
 
             services
                 .AddTransient<IBackgroundProcessingClient, BackgroundProcessingClient>();
-
+        
             return services;
         }
 

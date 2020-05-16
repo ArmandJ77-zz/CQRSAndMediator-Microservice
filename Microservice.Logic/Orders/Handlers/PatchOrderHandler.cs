@@ -2,6 +2,7 @@
 using Microservice.Db;
 using Microservice.Db.EntityModels;
 using Microservice.Logic.Orders.Commands;
+using Microservice.Logic.Orders.EventPublishers;
 using Microservice.Logic.Orders.Responses;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -10,13 +11,15 @@ using System.Threading.Tasks;
 
 namespace Microservice.Logic.Orders.Handlers
 {
-    public class PatchOrderHandler :  IRequestHandler<PatchOrderCommand, OrderResponse>
+    public class PatchOrderHandler : IRequestHandler<PatchOrderCommand, OrderResponse>
     {
         private readonly MicroserviceDbContext _dbContext;
+        private readonly IOrderPatchedEventPublisher _updatedEventPublisher;
 
-        public PatchOrderHandler(MicroserviceDbContext dbContext)
+        public PatchOrderHandler(MicroserviceDbContext dbContext, IOrderPatchedEventPublisher updatedEventPublisher)
         {
             _dbContext = dbContext;
+            _updatedEventPublisher = updatedEventPublisher;
         }
 
         public async Task<OrderResponse> Handle(PatchOrderCommand command, CancellationToken cancellationToken)
@@ -47,10 +50,12 @@ namespace Microservice.Logic.Orders.Handlers
             {
                 Id = originalEntity.Id,
                 Name = model.Name
-            }; 
+            };
 
             _dbContext.Update(updatedEntity);
             await _dbContext.SaveChangesAsync(cancellationToken);
+
+            await _updatedEventPublisher.Publish(updatedEntity.ToUpdatedEvent());
 
             var response = updatedEntity.ToResponse();
             return response;

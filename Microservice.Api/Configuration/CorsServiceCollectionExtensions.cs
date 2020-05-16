@@ -1,12 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Microservice.Api.Conficuration
+namespace Microservice.Api.Configuration
 {
     public static class CorsServiceCollectionExtensions
     {
-        public static IServiceCollection AddCors(this IServiceCollection services,
-            IConfiguration config)
+        public static IServiceCollection AddCorsRules(this IServiceCollection services)
         {
             services.AddCors(options => options.AddPolicy("Default", builder =>
             {
