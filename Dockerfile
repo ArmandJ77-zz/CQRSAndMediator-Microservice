@@ -5,7 +5,7 @@ COPY ./Microservice.Api/*.csproj ./Microservice.Api/
 COPY ./Microservice.Db/*.csproj ./Microservice.Db/
 COPY ./Microservice.Logic/*.csproj ./Microservice.Logic/
 COPY ./Microservice.HangfireBackgroundJobServer/*.csproj ./Microservice.HangfireBackgroundJobServer/
-COPY ./Microservice.RabbitMessageBroker/*.csproj ./Microservice.RabbitMessageBroker/
+COPY ./Microservice.RabbitMessageBrokerHelpers/*.csproj ./Microservice.RabbitMessageBrokerHelpers/
 COPY ./Microservice.RabbitMessageBroker.Integration.Tests/*.csproj ./Microservice.RabbitMessageBroker.Integration.Tests/
 COPY ./Microservice.Api.Integration.Tests/*.csproj ./Microservice.Api.Integration.Tests/
 RUN dotnet restore
