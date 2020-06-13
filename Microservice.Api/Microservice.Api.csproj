@@ -10,6 +10,7 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="8.6.1" />
     <PackageReference Include="MediatR" Version="8.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microservice.RabbitMQMessageBrokerExtension" Version="1.3.18" />
     <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="3.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.3">
@@ -22,9 +23,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Microservice.Db\Microservice.Db.csproj" />
-    <ProjectReference Include="..\Microservice.HangfireBackgroundJobServer\Microservice.HangfireBackgroundJobServer.csproj" />
+    <!-- <ProjectReference Include="..\Microservice.HangfireBackgroundJobServer\Microservice.HangfireBackgroundJobServer.csproj" /> -->
     <ProjectReference Include="..\Microservice.Logic\Microservice.Logic.csproj" />
-    <ProjectReference Include="..\Microservice.RabbitMessageBrokerHelpers\Microservice.RabbitMessageBrokerHelpers.csproj" />
-    <ProjectReference Include="..\Microservice.RabbitMessageBroker\Microservice.RabbitMessageBroker.csproj" />
+    <!-- <ProjectReference Include="..\Microservice.RabbitMessageBrokerHelpers\Microservice.RabbitMessageBrokerHelpers.csproj" /> -->
   </ItemGroup>
 </Project>

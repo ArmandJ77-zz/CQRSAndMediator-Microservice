@@ -1,8 +1,8 @@
 ﻿using Microservice.HangfireBackgroundJobServer.Infrastructure;
-using Microservice.RabbitMessageBroker;
 using Microservice.RabbitMessageBrokerHelpers.Builders;
 using Microservice.RabbitMessageBrokerHelpers.Handlers;
 using Microservice.RabbitMessageBrokerHelpers.Models;
+using Microservice.RabbitMQMessageBrokerExtension;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

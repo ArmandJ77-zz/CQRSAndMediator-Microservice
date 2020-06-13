@@ -1,6 +1,6 @@
 ﻿using Microservice.Logic.Orders.Events;
-using Microservice.RabbitMessageBroker;
 using Microservice.RabbitMessageBrokerHelpers.Handlers;
+using Microservice.RabbitMQMessageBrokerExtension;
 using System.Threading.Tasks;
 
 namespace Microservice.Logic.Orders.EventPublishers

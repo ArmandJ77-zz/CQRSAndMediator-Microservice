@@ -7,7 +7,7 @@ using Microservice.HangfireBackgroundJobServer.Configuration;
 using Microservice.Logic.BackgroundProcessing;
 using Microservice.Logic.Configuration;
 using Microservice.Logic.Orders.Validators;
-using Microservice.RabbitMessageBroker.Configuration;
+using Microservice.RabbitMQMessageBrokerExtension.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

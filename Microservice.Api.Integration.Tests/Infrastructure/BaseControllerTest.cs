@@ -1,6 +1,6 @@
 ﻿using Microservice.Db;
-using Microservice.RabbitMessageBroker;
-using Microservice.RabbitMessageBroker.Configuration;
+using Microservice.RabbitMQMessageBrokerExtension;
+using Microservice.RabbitMQMessageBrokerExtension.Configuration;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

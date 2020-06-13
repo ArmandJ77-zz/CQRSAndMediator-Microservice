@@ -1,4 +1,4 @@
-﻿using Microservice.RabbitMessageBroker;
+﻿using Microservice.RabbitMQMessageBrokerExtension;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;

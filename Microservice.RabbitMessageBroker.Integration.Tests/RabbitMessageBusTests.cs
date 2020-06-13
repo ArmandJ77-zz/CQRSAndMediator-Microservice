@@ -1,4 +1,5 @@
-﻿using Microservice.RabbitMessageBroker.Configuration;
+﻿using Microservice.RabbitMQMessageBrokerExtension;
+using Microservice.RabbitMQMessageBrokerExtension.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;

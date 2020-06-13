@@ -9,8 +9,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microservice.RabbitMQMessageBrokerExtension" Version="1.3.18" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Microservice.HangfireBackgroundJobServer\Microservice.HangfireBackgroundJobServer.csproj" />
-    <ProjectReference Include="..\Microservice.RabbitMessageBroker\Microservice.RabbitMessageBroker.csproj" />
   </ItemGroup>
 
 </Project>
