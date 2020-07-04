@@ -22,7 +22,6 @@ namespace Microservice.HangfireBackgroundJobServer.Configuration
                 .Configure<BackgroundJobServerSettings>(config)
                 ;
 
-
             if (!string.IsNullOrEmpty(settings.ConnectionString))
             {
                 services
